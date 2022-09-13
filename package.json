@@ -41,6 +41,8 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.26",
+    "react-markdown": "^8.0.3",
     "styled-components": "^5.3.5"
   }
 }
