@@ -13,6 +13,7 @@ const Wrapper = styled.button`
   font-size: 15px;
   color: white;
   border-radius: 4px;
+  cursor: pointer;
 
   &:hover {
     background: ${(props) => props.theme.dark.orangeHover};

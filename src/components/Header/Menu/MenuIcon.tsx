@@ -2,10 +2,16 @@ import IconMenu from "../../../assets/icon-menu.svg";
 import IconClose from "../../../assets/icon-close.svg";
 import styled from "styled-components";
 
-export const MenuIcon = () => {
+export interface IMenuProps {
+  clickHandler(): void;
+  menuClicked: boolean;
+}
+
+export const MenuIcon = ({ clickHandler, menuClicked }: IMenuProps) => {
   return (
-    <Wrapper>
-      <img src={IconMenu} />
+    <Wrapper onClick={clickHandler}>
+      {!menuClicked && <img src={IconMenu} />}
+      {menuClicked && <img src={IconClose} />}
     </Wrapper>
   );
 };

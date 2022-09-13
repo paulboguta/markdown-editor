@@ -28,9 +28,7 @@ const Wrapper = styled.div`
 
   @media (max-width: 767px) {
     height: 56px;
-  }
 
-  @media (max-width: 1023px) {
     span {
       display: none;
     }

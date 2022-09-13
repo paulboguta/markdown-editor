@@ -2,21 +2,30 @@ import { MenuIcon } from "./MenuIcon";
 import styled from "styled-components";
 import { Logo } from "../Logo";
 import { BtnNewDocument } from "../../Buttons/BtnNewDocument";
+import { useState } from "react";
 
 export const Menu = () => {
+  const [menuClicked, setMenuClicked] = useState<boolean>(false);
+
+  const clickHandler = (): void => {
+    setMenuClicked((menuClicked) => !menuClicked);
+  };
+
   return (
     <Wrapper>
-      <WrapperSlider>
-        <div>
-          <Logo />
-          <HS>My Documents</HS>
-          <BtnNewDocument />
-          <ul>
-            <li>document map later</li>
-          </ul>
-        </div>
-      </WrapperSlider>
-      <MenuIcon />
+      {menuClicked && (
+        <WrapperSlider>
+          <div>
+            <Logo />
+            <HS>My Documents</HS>
+            <BtnNewDocument />
+            <ul>
+              <li>document map later</li>
+            </ul>
+          </div>
+        </WrapperSlider>
+      )}
+      <MenuIcon clickHandler={clickHandler} menuClicked={menuClicked} />
     </Wrapper>
   );
 };
