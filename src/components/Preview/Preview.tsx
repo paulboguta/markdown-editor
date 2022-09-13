@@ -1,15 +1,22 @@
 import styled from "styled-components";
+import { ChangeEvent } from "react";
+import ReactMarkdown from "react-markdown";
 
 interface IPreviewProps {
   showPreview: boolean;
   width: number;
+  markdownInput: string;
 }
 
 interface IPreviewStyle {
   w: string;
 }
 
-export const Preview = ({ showPreview, width }: IPreviewProps) => {
+export const Preview = ({
+  showPreview,
+  width,
+  markdownInput,
+}: IPreviewProps) => {
   let w = width > 768 ? "50vw" : "100vw";
 
   return (
@@ -17,7 +24,10 @@ export const Preview = ({ showPreview, width }: IPreviewProps) => {
       <Header w={w}>
         <div>Preview</div>
       </Header>
-      <TextArea w={w} />
+
+      <TextArea w={w}>
+        <ReactMarkdown children={markdownInput}></ReactMarkdown>
+      </TextArea>
     </Wrapper>
   );
 };
@@ -53,6 +63,7 @@ const Header = styled.div<IPreviewStyle>`
 `;
 
 const TextArea = styled.div<IPreviewStyle>`
+  padding: 10px;
   border: none;
   border-left: 1px solid ${(props) => props.theme.dark.a300};
   width: ${(props) => props.w};

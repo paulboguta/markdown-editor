@@ -1,14 +1,21 @@
 import styled from "styled-components";
+import { ChangeEvent } from "react";
 
 interface IMarkdownProps {
   showPreview: boolean;
+  markdownInput: string;
+  changeHandler(event: ChangeEvent<HTMLTextAreaElement>): void;
 }
 
 interface IHeaderStyle {
   width: string;
 }
 
-export const Markdown = ({ showPreview }: IMarkdownProps) => {
+export const Markdown = ({
+  showPreview,
+  markdownInput,
+  changeHandler,
+}: IMarkdownProps) => {
   let width = showPreview ? "50vw" : "100vw";
 
   return (
@@ -16,7 +23,7 @@ export const Markdown = ({ showPreview }: IMarkdownProps) => {
       <Header width={width}>
         <div>Markdown</div>
       </Header>
-      <TextArea width={width} />
+      <TextArea width={width} value={markdownInput} onChange={changeHandler} />
     </Wrapper>
   );
 };
@@ -46,8 +53,14 @@ const Header = styled.div<IHeaderStyle>`
 
 const TextArea = styled.textarea<IHeaderStyle>`
   border: none;
+  padding: 10px;
 
   width: ${(props) => props.width};
   height: 100vh;
   resize: none;
+  &:focus {
+    outline: none;
+  }
+
+  font-family: "Roboto Mono";
 `;

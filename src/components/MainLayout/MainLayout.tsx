@@ -1,12 +1,17 @@
 import { Markdown } from "../Markdown/Markdown";
 import { Preview } from "../Preview/Preview";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import IconShow from "../../assets/icon-show-preview.svg";
 import IconHide from "../../assets/icon-hide-preview.svg";
 import { useWindowDimensions } from "../../hooks";
 
-export const MainLayout = () => {
+interface IMainProps {
+  changeHandler(event: ChangeEvent<HTMLTextAreaElement>): void;
+  markdownInput: string;
+}
+
+export const MainLayout = ({ changeHandler, markdownInput }: IMainProps) => {
   const [showPreview, setShowPreview] = useState<boolean>(true);
   const windowDimensions = useWindowDimensions();
 
@@ -17,14 +22,32 @@ export const MainLayout = () => {
   return (
     <Wrapper>
       {+windowDimensions.width < 768 && showPreview && (
-        <Preview showPreview={showPreview} width={+windowDimensions.width} />
+        <Preview
+          showPreview={showPreview}
+          width={+windowDimensions.width}
+          markdownInput={markdownInput}
+        />
       )}
       {+windowDimensions.width < 768 && !showPreview && (
-        <Markdown showPreview={showPreview} />
+        <Markdown
+          showPreview={showPreview}
+          markdownInput={markdownInput}
+          changeHandler={changeHandler}
+        />
       )}
-      {+windowDimensions.width > 768 && <Markdown showPreview={showPreview} />}
+      {+windowDimensions.width > 768 && (
+        <Markdown
+          showPreview={showPreview}
+          markdownInput={markdownInput}
+          changeHandler={changeHandler}
+        />
+      )}
       {+windowDimensions.width > 768 && showPreview && (
-        <Preview showPreview={showPreview} width={+windowDimensions.width} />
+        <Preview
+          showPreview={showPreview}
+          width={+windowDimensions.width}
+          markdownInput={markdownInput}
+        />
       )}
       <button onClick={clickHandler}>
         {!showPreview && <img src={IconShow} />}
