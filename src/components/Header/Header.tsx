@@ -1,7 +1,6 @@
 import { BtnDelete } from "../Buttons/BtnDelete";
 import { BtnSaveChange } from "../Buttons/BtnSaveChange";
 import styled from "styled-components";
-import { Logo } from "./Logo";
 import { CurrentDocument } from "./CurrentDocument";
 import { Menu } from "./Menu/Menu";
 
