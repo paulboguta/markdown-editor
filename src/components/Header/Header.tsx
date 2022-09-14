@@ -3,20 +3,18 @@ import { BtnSaveChange } from "../Buttons/BtnSaveChange";
 import styled from "styled-components";
 import { CurrentDocument } from "./CurrentDocument";
 import { MenuIcon } from "./Menu/MenuIcon";
-
-export interface IMenuProps {
-  clickHandler(): void;
-  menuClicked: boolean;
-}
+import { useContext } from "react";
+import { MenuContext } from "../../contexts/MenuContext";
 
 interface IWrapperStyle {
   menuClicked: boolean;
 }
 
-export const Header = ({ clickHandler, menuClicked }: IMenuProps) => {
+export const Header = () => {
+  const { menuClicked } = useContext(MenuContext);
   return (
     <Wrapper menuClicked={menuClicked}>
-      <MenuIcon clickHandler={clickHandler} menuClicked={menuClicked} />
+      <MenuIcon />
       <span>
         <CurrentDocument />
       </span>

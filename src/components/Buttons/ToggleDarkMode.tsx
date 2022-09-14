@@ -1,18 +1,14 @@
 import styled from "styled-components";
-
-interface IToggleDarkModeProps {
-  changeDarkModeOnClick(): void;
-  darkMode: boolean;
-}
+import { useContext } from "react";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 interface ICircleStyle {
   toggle: string;
 }
 
-export const ToggleDarkMode = ({
-  changeDarkModeOnClick,
-  darkMode,
-}: IToggleDarkModeProps) => {
+export const ToggleDarkMode = () => {
+  const { darkMode, changeDarkModeOnClick } = useContext(DarkModeContext);
+
   let toggle = darkMode ? "#fff" : "transparent";
   let toggle2 = darkMode ? "transparent" : "#fff";
 

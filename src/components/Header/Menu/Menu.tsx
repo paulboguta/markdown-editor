@@ -1,20 +1,12 @@
-import { MenuIcon } from "./MenuIcon";
+import { useContext } from "react";
+import { MenuContext } from "../../../contexts/MenuContext";
 import styled from "styled-components";
 import { Logo } from "../Logo";
 import { BtnNewDocument } from "../../Buttons/BtnNewDocument";
 import { ToggleDarkMode } from "../../Buttons/ToggleDarkMode";
 
-interface IMenuProps {
-  menuClicked: boolean;
-  changeDarkModeOnClick(): void;
-  darkMode: boolean;
-}
-
-export const Menu = ({
-  menuClicked,
-  changeDarkModeOnClick,
-  darkMode,
-}: IMenuProps) => {
+export const Menu = () => {
+  const { menuClicked } = useContext(MenuContext);
   return (
     <Wrapper>
       {menuClicked && (
@@ -25,10 +17,7 @@ export const Menu = ({
             <BtnNewDocument />
             <ul></ul>
           </div>
-          <ToggleDarkMode
-            changeDarkModeOnClick={changeDarkModeOnClick}
-            darkMode={darkMode}
-          />
+          <ToggleDarkMode />
         </WrapperSlider>
       )}
     </Wrapper>

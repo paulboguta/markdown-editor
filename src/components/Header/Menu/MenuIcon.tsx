@@ -1,13 +1,12 @@
 import IconMenu from "../../../assets/icon-menu.svg";
 import IconClose from "../../../assets/icon-close.svg";
 import styled from "styled-components";
+import { useContext } from "react";
+import { MenuContext } from "../../../contexts/MenuContext";
 
-export interface IMenuProps {
-  clickHandler(): void;
-  menuClicked: boolean;
-}
+export const MenuIcon = () => {
+  const { menuClicked, clickHandler } = useContext(MenuContext);
 
-export const MenuIcon = ({ clickHandler, menuClicked }: IMenuProps) => {
   return (
     <Wrapper onClick={clickHandler}>
       {!menuClicked && <img src={IconMenu} />}
