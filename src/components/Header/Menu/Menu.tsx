@@ -4,8 +4,11 @@ import styled from "styled-components";
 import { Logo } from "../Logo";
 import { BtnNewDocument } from "../../Buttons/BtnNewDocument";
 import { ToggleDarkMode } from "../../Buttons/ToggleDarkMode";
+import { BtnLogOut } from "../../Buttons/BtnLogOut";
+import { useAuth } from "../../../hooks";
 
 export const Menu = () => {
+  const currentUser = useAuth();
   const { menuClicked } = useContext(MenuContext);
   return (
     <Wrapper>
@@ -18,6 +21,8 @@ export const Menu = () => {
             <ul></ul>
           </div>
           <ToggleDarkMode />
+          <Username>{currentUser?.email}</Username>
+          <BtnLogOut />
         </WrapperSlider>
       )}
     </Wrapper>
@@ -56,4 +61,10 @@ const HS = styled.div`
   color: #7c8187;
   white-space: nowrap;
   margin-top: 10px;
+`;
+
+const Username = styled.div`
+  color: #fff;
+  opacity: 0.5;
+  margin-top: 20px;
 `;

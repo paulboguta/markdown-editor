@@ -1,8 +1,34 @@
 import styled from "styled-components";
-import { BtnLogin } from "../Buttons/BtnLogin";
+import { useState, ChangeEvent } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/config";
 import { Logo } from "../Header/Logo";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === "email") {
+      setEmail(event.target.value);
+    } else {
+      setPassword(event.target.value);
+    }
+  };
+
   return (
     <Background>
       <WrapperForm>
@@ -11,18 +37,23 @@ export const LoginForm = () => {
         </span>
         <form id="signup">
           <Input>
-            <label>Username </label>
-            <input type="text" name="username" required />
+            <label>Email </label>
+            <input type="text" name="email" required onChange={changeHandler} />
           </Input>
           <Input>
             <label>Password </label>
-            <input type="text" name="password" required />
+            <input
+              type="password"
+              name="password"
+              required
+              onChange={changeHandler}
+            />
           </Input>
-          <BtnLogin name="Login" />
         </form>
         <MoveToLogin>
+          <Button onClick={login}>Login</Button>
           <div>Want to create an account?</div>
-          <a>Sign up</a>
+          <Link to="/signup">Sign up</Link>
         </MoveToLogin>
       </WrapperForm>
     </Background>
@@ -35,8 +66,6 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  ${(props) => props.theme.background}
 `;
 
 const WrapperForm = styled.div`
@@ -77,4 +106,21 @@ const MoveToLogin = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+`;
+
+const Button = styled.button`
+  border: none;
+  background-color: #e46643;
+  width: 202px;
+  height: 40px;
+  margin-top: 30px;
+  font-size: 15px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f39765;
+    transition: 0.3s ease-in;
+  }
 `;

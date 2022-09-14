@@ -1,8 +1,31 @@
 import styled from "styled-components";
 import { Logo } from "../Header/Logo";
-import { BtnLogin } from "../Buttons/BtnLogin";
+import { Link } from "react-router-dom";
+import { auth } from "../../config/config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-export const Login = () => {
+import { ChangeEvent, useState } from "react";
+
+export const SignupForm = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const signUpWithEmailAndPassword = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === "email") {
+      setEmail(event.target.value);
+    } else {
+      setPassword(event.target.value);
+    }
+  };
+
   return (
     <Background>
       <WrapperForm>
@@ -11,22 +34,23 @@ export const Login = () => {
         </span>
         <form id="signup">
           <Input>
-            <label>Username </label>
-            <input type="text" name="username" required />
-          </Input>
-          <Input>
             <label>Email </label>
-            <input type="text" name="email" required />
+            <input type="text" name="email" required onChange={changeHandler} />
           </Input>
           <Input>
             <label>Password </label>
-            <input type="text" name="password" required />
+            <input
+              type="password"
+              name="password"
+              required
+              onChange={changeHandler}
+            />
           </Input>
-          <BtnLogin name="Sign up" />
+          <Button onClick={signUpWithEmailAndPassword}>Sign Up</Button>
         </form>
         <MoveToLogin>
           <div>Already have an account?</div>
-          <a>Log In</a>
+          <Link to="/login">Log In</Link>
         </MoveToLogin>
       </WrapperForm>
     </Background>
@@ -39,8 +63,6 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  ${(props) => props.theme.background}
 `;
 
 const WrapperForm = styled.div`
@@ -81,4 +103,21 @@ const MoveToLogin = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+`;
+
+const Button = styled.button`
+  border: none;
+  background-color: #e46643;
+  width: 202px;
+  height: 40px;
+  margin-top: 30px;
+  font-size: 15px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f39765;
+    transition: 0.3s ease-in;
+  }
 `;

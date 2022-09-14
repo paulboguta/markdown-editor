@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./config/config";
 
 //https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
 
@@ -25,4 +27,14 @@ export const useWindowDimensions = () => {
   }, []);
 
   return windowDimensions;
+};
+
+export const useAuth = () => {
+  const [currentUser, setCurrentUser] = useState<any>();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
+    return unsub;
+  }, []);
+  return currentUser;
 };

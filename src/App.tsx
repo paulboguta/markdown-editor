@@ -1,40 +1,19 @@
 import "./styles/App.css";
-import { GlobalStyle, themeDark, themeLight } from "./styles/styles";
-import { ThemeProvider } from "styled-components";
-import { DarkModeContext } from "./contexts/DarkModeContext";
-import { MenuContext } from "./contexts/MenuContext";
-import { Header } from "./components/Header/Header";
-import { Main } from "./components/Main/Main";
-import { Menu } from "./components/Header/Menu/Menu";
-import { useState } from "react";
+import { GlobalStyle } from "./styles/styles";
+import { LoginForm } from "./components/Login/LoginForm";
+import { SignupForm } from "./components/Login/SignupForm";
+import { Route, Routes } from "react-router-dom";
+import { HomePage } from "./components/HomePage";
 
 export const App = () => {
-  const [menuClicked, setMenuClicked] = useState<boolean>(false);
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-  const [theme, setTheme] = useState(themeDark);
-
-  const clickHandler = (): void => {
-    setMenuClicked((menuClicked) => !menuClicked);
-  };
-
-  const changeDarkModeOnClick = (): void => {
-    setDarkMode((darkMode) => !darkMode);
-
-    darkMode ? setTheme(themeDark) : setTheme(themeLight);
-  };
-
   return (
     <>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <DarkModeContext.Provider value={{ changeDarkModeOnClick, darkMode }}>
-          <MenuContext.Provider value={{ menuClicked, clickHandler }}>
-            <Menu />
-            <Header />
-          </MenuContext.Provider>
-          <Main />
-        </DarkModeContext.Provider>
-      </ThemeProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignupForm />} />
+      </Routes>
     </>
   );
 };
