@@ -2,15 +2,19 @@ import { MenuIcon } from "./MenuIcon";
 import styled from "styled-components";
 import { Logo } from "../Logo";
 import { BtnNewDocument } from "../../Buttons/BtnNewDocument";
-import { useState } from "react";
+import { ToggleDarkMode } from "../../Buttons/ToggleDarkMode";
 
-export const Menu = () => {
-  const [menuClicked, setMenuClicked] = useState<boolean>(false);
+interface IMenuProps {
+  menuClicked: boolean;
+  changeDarkModeOnClick(): void;
+  darkMode: boolean;
+}
 
-  const clickHandler = (): void => {
-    setMenuClicked((menuClicked) => !menuClicked);
-  };
-
+export const Menu = ({
+  menuClicked,
+  changeDarkModeOnClick,
+  darkMode,
+}: IMenuProps) => {
   return (
     <Wrapper>
       {menuClicked && (
@@ -19,13 +23,14 @@ export const Menu = () => {
             <Logo />
             <HS>My Documents</HS>
             <BtnNewDocument />
-            <ul>
-              <li>document map later</li>
-            </ul>
+            <ul></ul>
           </div>
+          <ToggleDarkMode
+            changeDarkModeOnClick={changeDarkModeOnClick}
+            darkMode={darkMode}
+          />
         </WrapperSlider>
       )}
-      <MenuIcon clickHandler={clickHandler} menuClicked={menuClicked} />
     </Wrapper>
   );
 };
@@ -33,24 +38,24 @@ export const Menu = () => {
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 100vh;
+
+  position: absolute;
 `;
 
 const WrapperSlider = styled.div`
-  background-color: ${(props) => props.theme.dark.a900};
+  background-color: #1d1f22;
   width: 250px;
   height: 950px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
 
-  div {
-    position: absolute;
-    top: 15px;
-    left: 20px;
-
-    @media (max-width: 768px) {
-      top: 10px;
-    }
+  ul {
+    height: 50vh;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    overflow-y: auto;
   }
 `;
 
@@ -59,7 +64,7 @@ const HS = styled.div`
   font-size: 14px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: ${(props) => props.theme.dark.a500};
-  margin-top: 30px;
+  color: #7c8187;
   white-space: nowrap;
+  margin-top: 10px;
 `;

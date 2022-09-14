@@ -15,7 +15,7 @@ export const BtnSaveChange = () => {
 };
 
 const Wrapper = styled.button`
-  background: ${(props) => props.theme.dark.orange};
+  background: ${(props) => props.theme.orange};
   border: none;
   border-radius: 4px;
   color: white;
@@ -31,7 +31,7 @@ const Wrapper = styled.button`
   right: 16px;
 
   &:hover {
-    background: ${(props) => props.theme.dark.orangeHover};
+    background: ${(props) => props.theme.orangeHover};
     transition: 0.3s ease-in;
   }
 

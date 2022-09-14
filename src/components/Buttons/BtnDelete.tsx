@@ -22,12 +22,12 @@ const Wrapper = styled.button`
   right: 190px;
 
   @media (max-width: 768px) {
-    right: 80px;
+    right: 90px;
   }
 
   svg:hover path {
     stroke: transparent;
-    fill: ${(props) => props.theme.dark.orange};
+    fill: ${(props) => props.theme.orange};
     transition: 0.3s ease-in;
   }
 `;

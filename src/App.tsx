@@ -1,28 +1,41 @@
-import { ChangeEvent, useState } from "react";
 import "./styles/App.css";
-import { GlobalStyle, theme } from "./styles/styles";
+import { GlobalStyle, themeDark, themeLight } from "./styles/styles";
 import { ThemeProvider } from "styled-components";
-import ReactMarkdown from "react-markdown";
 import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
+import { Menu } from "./components/Header/Menu/Menu";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 export const App = () => {
+  const [menuClicked, setMenuClicked] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [theme, setTheme] = useState(themeDark);
+
+  const clickHandler = (): void => {
+    setMenuClicked((menuClicked) => !menuClicked);
+  };
+
+  const changeDarkModeOnClick = (): void => {
+    setDarkMode((darkMode) => !darkMode);
+
+    darkMode ? setTheme(themeDark) : setTheme(themeLight);
+  };
+
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Header />
-      <Main />
-    </ThemeProvider>
+    <Wrapper>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Menu
+          menuClicked={menuClicked}
+          changeDarkModeOnClick={changeDarkModeOnClick}
+          darkMode={darkMode}
+        />
+        <Header clickHandler={clickHandler} menuClicked={menuClicked} />
+        <Main />
+      </ThemeProvider>
+    </Wrapper>
   );
 };
 
-{
-  /* <textarea
-        autoFocus
-        value={input}
-        onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-          setInput(e.target.value)
-        }
-      />
-      <ReactMarkdown children={input} /> */
-}
+const Wrapper = styled.div``;

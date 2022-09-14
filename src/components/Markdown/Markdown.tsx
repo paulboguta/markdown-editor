@@ -31,12 +31,13 @@ export const Markdown = ({
 const Wrapper = styled.div<IHeaderStyle>`
   height: 100%;
   width: ${(props) => props.width};
+  background-color: ${(props) => props.theme.background};
 `;
 
 const Header = styled.div<IHeaderStyle>`
   height: 42px;
   width: ${(props) => props.width};
-  background-color: ${(props) => props.theme.dark.a200};
+  background-color: ${(props) => props.theme.markdownHeader};
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -46,7 +47,7 @@ const Header = styled.div<IHeaderStyle>`
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 500;
-    color: ${(props) => props.theme.dark.a500};
+    color: ${(props) => props.theme.markdownHeaderText};
     margin-left: 20px;
   }
 `;
@@ -54,7 +55,8 @@ const Header = styled.div<IHeaderStyle>`
 const TextArea = styled.textarea<IHeaderStyle>`
   border: none;
   padding: 10px;
-
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.markDownText};
   width: ${(props) => props.width};
   height: 100vh;
   resize: none;

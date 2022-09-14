@@ -2,12 +2,21 @@ import { BtnDelete } from "../Buttons/BtnDelete";
 import { BtnSaveChange } from "../Buttons/BtnSaveChange";
 import styled from "styled-components";
 import { CurrentDocument } from "./CurrentDocument";
-import { Menu } from "./Menu/Menu";
+import { MenuIcon } from "./Menu/MenuIcon";
 
-export const Header = () => {
+export interface IMenuProps {
+  clickHandler(): void;
+  menuClicked: boolean;
+}
+
+interface IWrapperStyle {
+  menuClicked: boolean;
+}
+
+export const Header = ({ clickHandler, menuClicked }: IMenuProps) => {
   return (
-    <Wrapper>
-      <Menu />
+    <Wrapper menuClicked={menuClicked}>
+      <MenuIcon clickHandler={clickHandler} menuClicked={menuClicked} />
       <span>
         <CurrentDocument />
       </span>
@@ -17,13 +26,13 @@ export const Header = () => {
   );
 };
 
-const Wrapper = styled.div`
-  position: relative;
+const Wrapper = styled.div<IWrapperStyle>`
   display: flex;
   align-items: center;
   height: 72px;
   width: 100vw;
-  background-color: ${(props) => props.theme.dark.a800};
+  background-color: #2b2d31;
+  margin-left: ${(props) => (props.menuClicked ? "250px" : "0px")};
 
   @media (max-width: 767px) {
     height: 56px;

@@ -20,10 +20,18 @@ const Wrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.theme.dark.a700};
+  background-color: #35393f;
   border: none;
   cursor: pointer;
   margin-right: 24px;
+  top: 0;
+  left: 0;
+  z-index: 99;
+
+  &:hover {
+    background-color: ${(props) => props.theme.orange};
+    transition: 0.3s ease-in;
+  }
 
   @media (max-width: 767px) {
     height: 56px;

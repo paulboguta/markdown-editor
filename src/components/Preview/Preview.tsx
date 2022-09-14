@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { ChangeEvent } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface IPreviewProps {
   showPreview: boolean;
@@ -26,7 +26,10 @@ export const Preview = ({
       </Header>
 
       <TextArea w={w}>
-        <ReactMarkdown children={markdownInput}></ReactMarkdown>
+        <ReactMarkdown
+          children={markdownInput}
+          remarkPlugins={[remarkGfm]}
+        ></ReactMarkdown>
       </TextArea>
     </Wrapper>
   );
@@ -34,13 +37,14 @@ export const Preview = ({
 
 const Wrapper = styled.div`
   height: 100%;
+  background-color: ${(props) => props.theme.background};
 `;
 
 const Header = styled.div<IPreviewStyle>`
   height: 42px;
   width: ${(props) => props.w};
-  background-color: ${(props) => props.theme.dark.a200};
-
+  background-color: ${(props) => props.theme.markdownHeader};
+  border-left: 1px solid ${(props) => props.theme.borderLeftPreview};
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -50,7 +54,7 @@ const Header = styled.div<IPreviewStyle>`
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 500;
-    color: ${(props) => props.theme.dark.a500};
+    color: ${(props) => props.theme.markdownHeaderText};
     margin-right: 60px;
 
     display: flex;
@@ -65,7 +69,8 @@ const Header = styled.div<IPreviewStyle>`
 const TextArea = styled.div<IPreviewStyle>`
   padding: 10px;
   border: none;
-  border-left: 1px solid ${(props) => props.theme.dark.a300};
+  border-left: 1px solid ${(props) => props.theme.borderLeftPreview};
+  color: ${(props) => props.theme.previewText};
   width: ${(props) => props.w};
   height: 100vh;
 `;

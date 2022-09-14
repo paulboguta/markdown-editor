@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 
 const Text = styled.div`
   font-weight: 300;
-  color: ${(props) => props.theme.dark.a500};
+  color: #7c8187;
   font-size: 13px;
   grid-area: 1 / 2 / 2 / 3;
 `;

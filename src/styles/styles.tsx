@@ -8,7 +8,6 @@ export const GlobalStyle = createGlobalStyle`
         overflow-y: hidden;
     }
 
-   
     p {
         font-size: 14px;
         line-height: 24px;
@@ -46,24 +45,31 @@ export const GlobalStyle = createGlobalStyle`
     h6 {
         font-weight: 700;
         font-size: 14px;
+        color: #E46643;
     }
 
 `;
 
-export const theme = {
-  dark: {
-    a1000: "#151619",
-    a900: "#1D1F22",
-    a800: "#2B2D31",
-    a700: "#35393F",
-    a600: "#5A6069",
-    a500: "#7C8187",
-    a400: "#C1C4CB",
-    a300: "#E4E4E4",
-    a200: "#F5F5F5",
-    a100: "#FFFFFF",
-    orange: "#E46643",
-    orangeHover: "#F39765",
-  },
-  light: {},
+export const themeDark = {
+  background: "#151619",
+  markdownHeader: "#1D1F22",
+  markdownHeaderText: "#C1C4CB",
+  markDownText: "#C1C4CB",
+  previewText: "#fff",
+  header: "#2B2D31",
+  borderLeftPreview: "#5A6069",
+  orange: "#E46643",
+  orangeHover: "#F39765",
+};
+
+export const themeLight = {
+  background: "#fff",
+  markdownHeader: "#F5F5F5",
+  markdownHeaderText: "#7C8187",
+  markDownText: "#35393F",
+  previewText: "black",
+  header: "#2B2D31",
+  borderLeftPreview: "#e4e4e4",
+  orange: "#E46643",
+  orangeHover: "#F39765",
 };
