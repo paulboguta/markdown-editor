@@ -11,9 +11,15 @@ export const HomePage = () => {
   const [menuClicked, setMenuClicked] = useState<boolean>(false);
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [theme, setTheme] = useState(themeDark);
+  const [showNewDocumentForm, setShowNewDocumentForm] =
+    useState<boolean>(false);
 
   const clickHandler = (): void => {
     setMenuClicked((menuClicked) => !menuClicked);
+  };
+
+  const newDocumentClicked = (): void => {
+    setShowNewDocumentForm((showNewDocForm) => !showNewDocForm);
   };
 
   const changeDarkModeOnClick = (): void => {
@@ -25,11 +31,18 @@ export const HomePage = () => {
   return (
     <ThemeProvider theme={theme}>
       <DarkModeContext.Provider value={{ changeDarkModeOnClick, darkMode }}>
-        <MenuContext.Provider value={{ menuClicked, clickHandler }}>
+        <MenuContext.Provider
+          value={{
+            menuClicked,
+            clickHandler,
+            showNewDocumentForm,
+            newDocumentClicked,
+          }}
+        >
           <Menu />
           <Header />
+          <Main />
         </MenuContext.Provider>
-        <Main />
       </DarkModeContext.Provider>
     </ThemeProvider>
   );

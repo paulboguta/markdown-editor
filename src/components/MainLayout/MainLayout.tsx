@@ -1,10 +1,12 @@
 import { Markdown } from "../Markdown/Markdown";
 import { Preview } from "../Preview/Preview";
 import styled from "styled-components";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useContext } from "react";
 import IconShow from "../../assets/icon-show-preview.svg";
 import IconHide from "../../assets/icon-hide-preview.svg";
 import { useWindowDimensions } from "../../hooks";
+import { MenuContext } from "../../contexts/MenuContext";
+import { CreateDocForm } from "../Documents/CreateDocForm";
 
 interface IMainProps {
   changeHandler(event: ChangeEvent<HTMLTextAreaElement>): void;
@@ -14,6 +16,7 @@ interface IMainProps {
 export const MainLayout = ({ changeHandler, markdownInput }: IMainProps) => {
   const [showPreview, setShowPreview] = useState<boolean>(true);
   const windowDimensions = useWindowDimensions();
+  const { showNewDocumentForm } = useContext(MenuContext);
 
   const clickHandler = (): void => {
     setShowPreview((showPreview) => !showPreview);
@@ -21,6 +24,7 @@ export const MainLayout = ({ changeHandler, markdownInput }: IMainProps) => {
   };
   return (
     <Wrapper>
+      {showNewDocumentForm && <CreateDocForm />}
       {+windowDimensions.width < 768 && showPreview && (
         <Preview
           showPreview={showPreview}

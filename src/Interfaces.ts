@@ -6,3 +6,13 @@ export interface IAppHeadingsProps {
 export interface IStyleProps {
   type: string;
 }
+
+export interface IDocument {
+  title: string;
+  text: string;
+  uid: string;
+}
+
+export interface IDocumentsState {
+  documents: Document[];
+}

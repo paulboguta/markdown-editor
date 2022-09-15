@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MenuContext } from "../../../contexts/MenuContext";
 import styled from "styled-components";
 import { Logo } from "../Logo";
@@ -6,10 +6,25 @@ import { BtnNewDocument } from "../../Buttons/BtnNewDocument";
 import { ToggleDarkMode } from "../../Buttons/ToggleDarkMode";
 import { BtnLogOut } from "../../Buttons/BtnLogOut";
 import { useAuth } from "../../../hooks";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../../config/config";
 
 export const Menu = () => {
   const currentUser = useAuth();
-  const { menuClicked } = useContext(MenuContext);
+  const { menuClicked, newDocumentClicked } = useContext(MenuContext);
+  const [documents, setDocuments] = useState<any>();
+
+  useEffect(() => {
+    const getDocuments = async () => {
+      const dataRef = collection(db, "Documents");
+      const q = query(dataRef, where("uid", "==", currentUser.uid));
+      const data = await getDocs(q);
+      setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    console.log(currentUser.uid);
+    getDocuments();
+  }, []);
+
   return (
     <Wrapper>
       {menuClicked && (
@@ -17,8 +32,13 @@ export const Menu = () => {
           <div>
             <Logo />
             <HS>My Documents</HS>
-            <BtnNewDocument />
-            <ul></ul>
+            <BtnNewDocument newDocumentClicked={newDocumentClicked} />
+            <ul>
+              {documents !== undefined &&
+                documents.map((doc: any, key: number) => {
+                  return <li key={key}>{doc.title}</li>;
+                })}
+            </ul>
           </div>
           <ToggleDarkMode />
           <Username>{currentUser?.email}</Username>

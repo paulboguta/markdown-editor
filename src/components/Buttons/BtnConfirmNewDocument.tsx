@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 interface IProps {
-  newDocumentClicked?(): void;
+  newDocumentNameConfirmed?(): void;
 }
 
-export const BtnNewDocument = ({ newDocumentClicked }: IProps) => {
-  return <Wrapper onClick={newDocumentClicked}>+ New Document</Wrapper>;
+export const BtnConfirmNewDocument = ({ newDocumentNameConfirmed }: IProps) => {
+  return <Wrapper onClick={newDocumentNameConfirmed}>Confirm</Wrapper>;
 };
 
 const Wrapper = styled.button`
