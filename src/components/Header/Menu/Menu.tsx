@@ -5,15 +5,17 @@ import { Logo } from "../Logo";
 import { BtnNewDocument } from "../../Buttons/BtnNewDocument";
 import { ToggleDarkMode } from "../../Buttons/ToggleDarkMode";
 import { BtnLogOut } from "../../Buttons/BtnLogOut";
-import { useAuth } from "../../../hooks";
+import { useAuth } from "../../../hooks/hooks";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../config/config";
+import IconDocument from "../../../assets/icon-document.svg";
 
 export const Menu = () => {
   const currentUser = useAuth();
   const { menuClicked, newDocumentClicked } = useContext(MenuContext);
-  const [documents, setDocuments] = useState<any>();
+  const [documents, setDocuments] = useState<any>(); // what type would it be?
 
+  // should this logic even be here? or other file and pass state here
   useEffect(() => {
     const getDocuments = async () => {
       const dataRef = collection(db, "Documents");
@@ -21,9 +23,8 @@ export const Menu = () => {
       const data = await getDocs(q);
       setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
-    console.log(currentUser.uid);
     getDocuments();
-  }, []);
+  }, [menuClicked, documents, setDocuments]);
 
   return (
     <Wrapper>
@@ -36,7 +37,12 @@ export const Menu = () => {
             <ul>
               {documents !== undefined &&
                 documents.map((doc: any, key: number) => {
-                  return <li key={key}>{doc.title}</li>;
+                  return (
+                    <li key={key}>
+                      <img src={IconDocument} />
+                      <button>{doc.title}</button>
+                    </li>
+                  );
                 })}
             </ul>
           </div>
@@ -70,6 +76,32 @@ const WrapperSlider = styled.div`
     margin-top: 30px;
     margin-bottom: 100px;
     overflow-y: auto;
+    background-color: #2b2d31;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    height: 25px;
+    margin-top: 5px;
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      font-family: "Roboto Mono", sans-serif;
+
+      &:hover {
+        color: ${(props) => props.theme.orange};
+        transition: 0.3s ease-in;
+      }
+    }
   }
 `;
 

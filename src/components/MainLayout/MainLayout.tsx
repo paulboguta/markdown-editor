@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useState, ChangeEvent, useContext } from "react";
 import IconShow from "../../assets/icon-show-preview.svg";
 import IconHide from "../../assets/icon-hide-preview.svg";
-import { useWindowDimensions } from "../../hooks";
+import { useWindowDimensions } from "../../hooks/hooks";
 import { MenuContext } from "../../contexts/MenuContext";
 import { CreateDocForm } from "../Documents/CreateDocForm";
 

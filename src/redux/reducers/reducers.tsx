@@ -1,6 +1,5 @@
 import { IDocumentsState } from "../../Interfaces";
 import { CREATE_DOCUMENT } from "../actions/documentActions";
-import { auth } from "../../config/config";
 
 const initialState: IDocumentsState = {
   documents: [],

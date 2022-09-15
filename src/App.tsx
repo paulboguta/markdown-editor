@@ -7,7 +7,7 @@ import { HomePage } from "./components/HomePage";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import { useEffect } from "react";
-import { useAuth } from "./hooks";
+import { useAuth } from "./hooks/hooks";
 
 export const App = () => {
   const user = useAuth();

@@ -10,7 +10,7 @@ export const BtnConfirmNewDocument = ({ newDocumentNameConfirmed }: IProps) => {
 
 const Wrapper = styled.button`
   border: none;
-  background-color: ${(props) => props.theme.orange};
+  background-color: #e46643;
   width: 202px;
   height: 40px;
   margin-top: 40px;
