@@ -24,7 +24,7 @@ export const Menu = () => {
       setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getDocuments();
-  }, [menuClicked, documents, setDocuments]);
+  }, [menuClicked]); // now fixed, i created endless loop and used 50k reads for today ...
 
   return (
     <Wrapper>
