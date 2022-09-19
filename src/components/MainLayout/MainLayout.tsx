@@ -17,7 +17,6 @@ export const MainLayout = () => {
 
   const clickHandler = (): void => {
     setShowPreview((showPreview) => !showPreview);
-    console.log(windowDimensions);
   };
   return (
     <Wrapper>
