@@ -1,7 +1,6 @@
 ## Table of contents
 
   - [Functionalities](#functionalities)
-  - [Screenshot](#screenshot)
   - [Links](#links)
   - [Built with](#built-with)
   - [Author](#author)
