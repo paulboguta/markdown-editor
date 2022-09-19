@@ -36,6 +36,7 @@ export const HomePage = () => {
   const deleteHandler = () => {
     setDeleteClicked((deleteClicked) => !deleteClicked);
     setDeleteModalClicked((deleteClicked) => !deleteClicked);
+    setMarkdownInput("");
   };
 
   const clickHandler = (): void => {
@@ -60,7 +61,6 @@ export const HomePage = () => {
       setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getDocuments();
-    console.log("hey");
   }, [menuClicked, showNewDocumentForm, deleteClicked]);
 
   const onClickDoc = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -88,8 +88,8 @@ export const HomePage = () => {
 
   const dispatch = useAppDispatch();
 
-  const changeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setMarkdownInput(event.target.value);
+  const changeHandler = async (event: ChangeEvent<HTMLTextAreaElement>) => {
+    await setMarkdownInput(event.target.value);
     saveData();
   };
 
