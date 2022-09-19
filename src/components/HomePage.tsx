@@ -41,7 +41,6 @@ export const HomePage = () => {
     darkMode ? setTheme(themeDark) : setTheme(themeLight);
   };
 
-  // should this logic even be here? or other file and pass state here
   useEffect(() => {
     const getDocuments = async () => {
       const dataRef = collection(db, "Documents");
@@ -78,12 +77,13 @@ export const HomePage = () => {
 
   const changeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setMarkdownInput(event.target.value);
+    saveData();
   };
 
   const saveData = () => {
     setTimeout(() => {
-      dispatch(editDocument(markdownInput, currentDocID)); // stopped typing for 30s lets update!
-    }, 3000);
+      dispatch(editDocument(markdownInput, currentDocID)); // stopped typing for 10s lets update!
+    }, 10000);
   };
 
   useEffect(() => {
