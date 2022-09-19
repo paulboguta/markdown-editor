@@ -1,9 +1,16 @@
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../config/config";
 import { AppDispatch } from "../store";
 
 export const CREATE_DOCUMENT = "CREATE_DOCUMENT";
 export const EDIT_DOCUMENT = "EDIT_DOCUMENT";
+export const DELETE_DOCUMENT = "DELETE_DOCUMENT";
 
 export const createDocument =
   (newDocumentTitle: string, uid: string) => async (dispatch: AppDispatch) => {
@@ -28,5 +35,16 @@ export const editDocument =
     dispatch({
       type: EDIT_DOCUMENT,
       newText: newText,
+    });
+  };
+
+export const deleteDocument =
+  (id: string, documentName: string) => async (dispatch: AppDispatch) => {
+    const docRef = doc(db, "Documents", `${id}`);
+    await deleteDoc(docRef);
+
+    dispatch({
+      type: DELETE_DOCUMENT,
+      documentName: documentName,
     });
   };

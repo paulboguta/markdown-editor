@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
 
 export const CurrentDocument = () => {
-  const { currentDocTitle } = useContext(CurrentDocumentContext);
+  const { currentDocTitle, deleteClicked } = useContext(CurrentDocumentContext);
+
   return (
     <Wrapper>
       <svg width="14" height="16" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +14,7 @@ export const CurrentDocument = () => {
         />
       </svg>
       <Text>Document Name</Text>
-      <DocumentName>{currentDocTitle}.md</DocumentName>
+      <DocumentName>{!deleteClicked && currentDocTitle}.md</DocumentName>
     </Wrapper>
   );
 };

@@ -1,5 +1,9 @@
 import { IDocumentsState } from "../../Interfaces";
-import { CREATE_DOCUMENT, EDIT_DOCUMENT } from "../actions/documentActions";
+import {
+  CREATE_DOCUMENT,
+  DELETE_DOCUMENT,
+  EDIT_DOCUMENT,
+} from "../actions/documentActions";
 
 const initialState: IDocumentsState = {
   documents: [],
@@ -24,6 +28,10 @@ const documentReducer = (state = initialState, action: any) => {
           }
           return state.documents;
         }),
+      ];
+    case DELETE_DOCUMENT:
+      return [
+        state.documents?.filter((doc) => doc.title !== action.documentName),
       ];
     default:
       return state;

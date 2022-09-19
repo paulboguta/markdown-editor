@@ -1,7 +1,7 @@
 import { DarkModeContext } from "../contexts/DarkModeContext";
 import { MenuContext } from "../contexts/MenuContext";
 import { Header } from "../components/Header/Header";
-import { Main } from "../components/Main/Main";
+import { MainLayout } from "./MainLayout/MainLayout";
 import { Menu } from "../components/Header/Menu/Menu";
 import { ChangeEvent, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
@@ -25,7 +25,18 @@ export const HomePage = () => {
   const [currentDocTitle, setCurrentDocTitle] = useState<string>("");
   const [currentDocID, setCurrentDocID] = useState<string>("");
   const [markdownInput, setMarkdownInput] = useState<string>("");
+  const [deleteModalClicked, setDeleteModalClicked] = useState<boolean>(false);
+  const [deleteClicked, setDeleteClicked] = useState<boolean>(false);
   const currentUser = useAuth();
+
+  const deleteModalHandler = () => {
+    setDeleteModalClicked((deleteClicked) => !deleteClicked);
+  };
+
+  const deleteHandler = () => {
+    setDeleteClicked((deleteClicked) => !deleteClicked);
+    setDeleteModalClicked((deleteClicked) => !deleteClicked);
+  };
 
   const clickHandler = (): void => {
     setMenuClicked((menuClicked) => !menuClicked);
@@ -49,7 +60,8 @@ export const HomePage = () => {
       setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getDocuments();
-  }, [menuClicked]); // now fixed, i created endless loop and used 50k reads for today ...
+    console.log("hey");
+  }, [menuClicked, showNewDocumentForm, deleteClicked]);
 
   const onClickDoc = (event: React.MouseEvent<HTMLButtonElement>) => {
     const currentDoc = documents.filter((doc: any) => {
@@ -68,6 +80,7 @@ export const HomePage = () => {
       return doc.id;
     });
 
+    setDeleteClicked(false);
     setCurrentDocTitle(currentDocTitle);
     setCurrentDocText(currentDocText);
     setCurrentDocID(currentDocID);
@@ -111,17 +124,18 @@ export const HomePage = () => {
               currentUser,
               markdownInput,
               changeHandler,
+              deleteHandler,
+              deleteModalHandler,
+              deleteClicked,
+              deleteModalClicked,
             }}
           >
             <Menu />
             <Header />
-            <Main />
+            <MainLayout />
           </CurrentDocumentContext.Provider>
         </MenuContext.Provider>
       </DarkModeContext.Provider>
     </ThemeProvider>
   );
 };
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}

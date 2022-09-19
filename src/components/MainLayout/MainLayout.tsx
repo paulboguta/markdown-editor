@@ -1,22 +1,19 @@
 import { Markdown } from "../Markdown/Markdown";
 import { Preview } from "../Preview/Preview";
 import styled from "styled-components";
-import { useState, ChangeEvent, useContext } from "react";
+import { useState, useContext } from "react";
 import IconShow from "../../assets/icon-show-preview.svg";
 import IconHide from "../../assets/icon-hide-preview.svg";
 import { useWindowDimensions } from "../../hooks/hooks";
 import { MenuContext } from "../../contexts/MenuContext";
 import { CreateDocForm } from "../Documents/CreateDocForm";
+import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
 
-interface IMainProps {
-  changeHandler(event: ChangeEvent<HTMLTextAreaElement>): void;
-  markdownInput: string;
-}
-
-export const MainLayout = ({ changeHandler, markdownInput }: IMainProps) => {
+export const MainLayout = () => {
   const [showPreview, setShowPreview] = useState<boolean>(true);
   const windowDimensions = useWindowDimensions();
   const { showNewDocumentForm } = useContext(MenuContext);
+  const { changeHandler, markdownInput } = useContext(CurrentDocumentContext);
 
   const clickHandler = (): void => {
     setShowPreview((showPreview) => !showPreview);

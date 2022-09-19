@@ -9,6 +9,10 @@ export type CurrentDocumentContext = {
   currentUser?: any;
   changeHandler(event: ChangeEvent<HTMLTextAreaElement>): void;
   markdownInput: string;
+  deleteHandler(): void;
+  deleteModalHandler(): void;
+  deleteClicked: boolean;
+  deleteModalClicked: boolean;
 };
 
 export const CurrentDocumentContext = createContext<CurrentDocumentContext>({
@@ -20,4 +24,8 @@ export const CurrentDocumentContext = createContext<CurrentDocumentContext>({
   currentUser: "",
   changeHandler: () => {},
   markdownInput: "",
+  deleteHandler: () => {},
+  deleteModalHandler: () => {},
+  deleteClicked: false,
+  deleteModalClicked: false,
 });

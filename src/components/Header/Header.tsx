@@ -5,6 +5,8 @@ import { CurrentDocument } from "./CurrentDocument";
 import { MenuIcon } from "./Menu/MenuIcon";
 import { useContext } from "react";
 import { MenuContext } from "../../contexts/MenuContext";
+import { Delete } from "./Delete";
+import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
 
 interface IWrapperStyle {
   menuClicked: boolean;
@@ -12,13 +14,18 @@ interface IWrapperStyle {
 
 export const Header = () => {
   const { menuClicked } = useContext(MenuContext);
+  const { deleteHandler, deleteModalClicked, deleteModalHandler } = useContext(
+    CurrentDocumentContext
+  );
+
   return (
     <Wrapper menuClicked={menuClicked}>
       <MenuIcon />
       <span>
         <CurrentDocument />
       </span>
-      <BtnDelete />
+      <BtnDelete clickHandler={deleteModalHandler} />
+      {deleteModalClicked && <Delete clickHandler={deleteHandler} />}
       <BtnSaveChange />
     </Wrapper>
   );
