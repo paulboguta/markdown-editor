@@ -1,30 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { MenuContext } from "../../../contexts/MenuContext";
+import { CurrentDocumentContext } from "../../../contexts/CurrentDocumentContext";
 import styled from "styled-components";
 import { Logo } from "../Logo";
 import { BtnNewDocument } from "../../Buttons/BtnNewDocument";
 import { ToggleDarkMode } from "../../Buttons/ToggleDarkMode";
 import { BtnLogOut } from "../../Buttons/BtnLogOut";
-import { useAuth } from "../../../hooks/hooks";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../../config/config";
+
 import IconDocument from "../../../assets/icon-document.svg";
 
 export const Menu = () => {
-  const currentUser = useAuth();
   const { menuClicked, newDocumentClicked } = useContext(MenuContext);
-  const [documents, setDocuments] = useState<any>(); // what type would it be?
-
-  // should this logic even be here? or other file and pass state here
-  useEffect(() => {
-    const getDocuments = async () => {
-      const dataRef = collection(db, "Documents");
-      const q = query(dataRef, where("uid", "==", currentUser.uid));
-      const data = await getDocs(q);
-      setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getDocuments();
-  }, [menuClicked]); // now fixed, i created endless loop and used 50k reads for today ...
+  const { onClickDoc, documents, currentUser } = useContext(
+    CurrentDocumentContext
+  );
 
   return (
     <Wrapper>
@@ -40,7 +29,9 @@ export const Menu = () => {
                   return (
                     <li key={key}>
                       <img src={IconDocument} />
-                      <button>{doc.title}</button>
+                      <button onClick={onClickDoc} name={doc.title}>
+                        {doc.title}
+                      </button>
                     </li>
                   );
                 })}

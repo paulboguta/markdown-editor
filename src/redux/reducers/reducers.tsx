@@ -1,5 +1,5 @@
 import { IDocumentsState } from "../../Interfaces";
-import { CREATE_DOCUMENT } from "../actions/documentActions";
+import { CREATE_DOCUMENT, EDIT_DOCUMENT } from "../actions/documentActions";
 
 const initialState: IDocumentsState = {
   documents: [],
@@ -15,6 +15,15 @@ const documentReducer = (state = initialState, action: any) => {
           uid: action.uid,
           text: "",
         },
+      ];
+    case EDIT_DOCUMENT:
+      return [
+        state.documents?.map((doc) => {
+          if (doc.title === action.title) {
+            return [...state.documents, { text: action.newText }];
+          }
+          return state.documents;
+        }),
       ];
     default:
       return state;

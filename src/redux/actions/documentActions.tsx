@@ -1,10 +1,9 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/config";
-import { IDocument } from "../../Interfaces";
 import { AppDispatch } from "../store";
 
 export const CREATE_DOCUMENT = "CREATE_DOCUMENT";
-export const READ_DOCUMENT = "READ_DOCUMENT";
+export const EDIT_DOCUMENT = "EDIT_DOCUMENT";
 
 export const createDocument =
   (newDocumentTitle: string, uid: string) => async (dispatch: AppDispatch) => {
@@ -17,5 +16,17 @@ export const createDocument =
       type: CREATE_DOCUMENT,
       newDoc: newDocumentTitle,
       uid: uid,
+    });
+  };
+
+export const editDocument =
+  (newText: string, id: string) => async (dispatch: AppDispatch) => {
+    const docRef = doc(db, "Documents", `${id}`);
+    await updateDoc(docRef, {
+      text: newText,
+    });
+    dispatch({
+      type: EDIT_DOCUMENT,
+      newText: newText,
     });
   };

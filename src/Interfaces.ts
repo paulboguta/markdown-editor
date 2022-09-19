@@ -14,5 +14,5 @@ export interface IDocument {
 }
 
 export interface IDocumentsState {
-  documents: Document[];
+  documents: IDocument[];
 }

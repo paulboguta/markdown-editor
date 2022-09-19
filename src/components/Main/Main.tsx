@@ -1,13 +1,10 @@
-import { ChangeEvent } from "react";
+import { useContext } from "react";
 import { MainLayout } from "../MainLayout/MainLayout";
-import { useState } from "react";
+
+import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
 
 export const Main = () => {
-  const [markdownInput, setMarkdownInput] = useState<string>("");
-
-  const changeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setMarkdownInput(event.target.value);
-  };
+  const { changeHandler, markdownInput } = useContext(CurrentDocumentContext);
 
   return (
     <MainLayout changeHandler={changeHandler} markdownInput={markdownInput} />
