@@ -24,6 +24,9 @@ export const CreateDocForm = () => {
     } else if (newDocName.length > 15) {
       alert("Document name can't exceed 15 characters. Try another name");
       return;
+    } else if (newDocName.length < 3) {
+      alert("Document name has to be at least 3 characters. Try another name");
+      return;
     } else {
       dispatch(createDocument(newDocName, currentUser.uid));
     }

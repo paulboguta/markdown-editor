@@ -32,6 +32,9 @@ export const CurrentDocument = () => {
     } else if (newTitle.length > 15) {
       alert("Document name can't exceed 15 characters. Try another name");
       return;
+    } else if (newTitle.length < 3) {
+      alert("Document name has to be at least 3 characters. Try another name");
+      return;
     } else {
       dispatch(editDocumentName(newTitle, currentDocID));
       setShowTitle(newTitle);
@@ -47,7 +50,7 @@ export const CurrentDocument = () => {
 
   useEffect(() => {
     setShowTitle(currentDocTitle);
-  }, [onClickDoc, newTitle]);
+  }, [currentDocTitle]);
 
   return (
     <Wrapper>
