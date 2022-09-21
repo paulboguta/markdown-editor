@@ -27,7 +27,12 @@ export const HomePage = () => {
   const [markdownInput, setMarkdownInput] = useState<string>("");
   const [deleteModalClicked, setDeleteModalClicked] = useState<boolean>(false);
   const [deleteClicked, setDeleteClicked] = useState<boolean>(false);
+  const [docNameChanged, setDocNameChanged] = useState<boolean>(false);
   const currentUser = useAuth();
+
+  const docNameChangedHandler = () => {
+    setDocNameChanged((docNameChanged) => !docNameChanged);
+  };
 
   const deleteModalHandler = () => {
     setDeleteModalClicked((deleteClicked) => !deleteClicked);
@@ -61,7 +66,13 @@ export const HomePage = () => {
       setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getDocuments();
-  }, [menuClicked, showNewDocumentForm, deleteClicked, currentDocTitle]);
+  }, [
+    menuClicked,
+    showNewDocumentForm,
+    deleteClicked,
+    currentDocTitle,
+    docNameChanged,
+  ]);
 
   const onClickDoc = (event: React.MouseEvent<HTMLButtonElement>) => {
     const currentDoc = documents.filter((doc: any) => {
@@ -128,6 +139,7 @@ export const HomePage = () => {
               deleteModalHandler,
               deleteClicked,
               deleteModalClicked,
+              docNameChangedHandler,
             }}
           >
             <Menu />

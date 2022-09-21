@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, useContext, useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
@@ -8,8 +8,15 @@ import { editDocumentName } from "../../redux/actions/documentActions";
 export const CurrentDocument = () => {
   const [documentClicked, setDocumentClicked] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>("");
-  const { currentDocTitle, deleteClicked, currentDocID, documents } =
-    useContext(CurrentDocumentContext);
+  const {
+    currentDocTitle,
+    deleteClicked,
+    currentDocID,
+    documents,
+    docNameChangedHandler,
+  } = useContext(CurrentDocumentContext);
+
+  const [showTitle, setShowTitle] = useState<string>(currentDocTitle);
   const dispatch = useAppDispatch();
 
   const onClickShowModal = () => {
@@ -17,16 +24,19 @@ export const CurrentDocument = () => {
   };
 
   const onClickChangeNameHideModal = () => {
-    console.log("click");
     const currentDocs = documents.map((doc: any) => doc.title);
     if (currentDocs.includes(newTitle)) {
       alert("This document name is already taken! Try another one");
       return;
+    } else if (newTitle.length > 15) {
+      alert("Document name can't exceed 15 characters. Try another name");
+      return;
     } else {
       dispatch(editDocumentName(newTitle, currentDocID));
+      setShowTitle(newTitle);
       setNewTitle("");
+      docNameChangedHandler();
       setDocumentClicked((documentClicked) => !documentClicked);
-      console.log(documentClicked);
     }
   };
 
@@ -44,7 +54,7 @@ export const CurrentDocument = () => {
           />
         </svg>
         <Text>Document Name</Text>
-        <DocumentName>{!deleteClicked && currentDocTitle}.md</DocumentName>
+        <DocumentName>{!deleteClicked && showTitle}.md</DocumentName>
       </Document>
       {documentClicked && (
         <WrapperModal>

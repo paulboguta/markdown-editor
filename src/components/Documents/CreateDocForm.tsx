@@ -22,9 +22,13 @@ export const CreateDocForm = () => {
     if (currentDocs.includes(newDocName)) {
       alert("This document name is already taken! Try another one");
       return;
+    } else if (newDocName.length > 15) {
+      alert("Document name can't exceed 15 characters. Try another name");
+      return;
     } else {
       dispatch(createDocument(newDocName, currentUser.uid));
     }
+
     newDocumentClicked();
     setNewDocName("");
   };

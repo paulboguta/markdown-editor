@@ -13,6 +13,7 @@ export type CurrentDocumentContext = {
   deleteModalHandler(): void;
   deleteClicked: boolean;
   deleteModalClicked: boolean;
+  docNameChangedHandler(): void;
 };
 
 export const CurrentDocumentContext = createContext<CurrentDocumentContext>({
@@ -28,4 +29,5 @@ export const CurrentDocumentContext = createContext<CurrentDocumentContext>({
   deleteModalHandler: () => {},
   deleteClicked: false,
   deleteModalClicked: false,
+  docNameChangedHandler: () => {},
 });
