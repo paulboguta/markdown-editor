@@ -4,19 +4,27 @@ import { BtnConfirmNewDocument } from "../Buttons/BtnConfirmNewDocument";
 import { createDocument } from "../../redux/actions/documentActions";
 import { useAppDispatch, useAuth } from "../../hooks/hooks";
 import { MenuContext } from "../../contexts/MenuContext";
+import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
 
 export const CreateDocForm = () => {
   const [newDocName, setNewDocName] = useState<string>("");
   const dispatch = useAppDispatch();
   const currentUser = useAuth();
   const { newDocumentClicked } = useContext(MenuContext);
+  const { documents } = useContext(CurrentDocumentContext);
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setNewDocName(event.target.value);
   };
 
   const newDocumentNameConfirmed = () => {
-    dispatch(createDocument(newDocName, currentUser.uid));
+    const currentDocs = documents.map((doc: any) => doc.title);
+    if (currentDocs.includes(newDocName)) {
+      alert("This document name is already taken! Try another one");
+      return;
+    } else {
+      dispatch(createDocument(newDocName, currentUser.uid));
+    }
     newDocumentClicked();
     setNewDocName("");
   };
