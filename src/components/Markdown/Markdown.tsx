@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState, useContext, useEffect } from "react";
+import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
 
 interface IMarkdownProps {
   showPreview: boolean;
@@ -17,13 +18,28 @@ export const Markdown = ({
   changeHandler,
 }: IMarkdownProps) => {
   let width = showPreview ? "50vw" : "100vw";
+  const [disableTextArea, setDisableTextArea] = useState<boolean>(false);
+  const { currentDocTitle } = useContext(CurrentDocumentContext);
+
+  useEffect(() => {
+    if (currentDocTitle === "") {
+      setDisableTextArea(true);
+    } else {
+      setDisableTextArea(false);
+    }
+  }, [currentDocTitle]);
 
   return (
     <Wrapper width={width}>
       <Header width={width}>
         <div>Markdown</div>
       </Header>
-      <TextArea width={width} value={markdownInput} onChange={changeHandler} />
+      <TextArea
+        disabled={disableTextArea}
+        width={width}
+        value={markdownInput}
+        onChange={changeHandler}
+      />
     </Wrapper>
   );
 };
