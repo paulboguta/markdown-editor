@@ -1,31 +1,80 @@
-import { useContext } from "react";
+import { ChangeEvent, useContext } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
+import { useAppDispatch } from "../../hooks/hooks";
+import { editDocumentName } from "../../redux/actions/documentActions";
 
 export const CurrentDocument = () => {
-  const { currentDocTitle, deleteClicked } = useContext(CurrentDocumentContext);
+  const [documentClicked, setDocumentClicked] = useState<boolean>(false);
+  const [newTitle, setNewTitle] = useState<string>("");
+  const { currentDocTitle, deleteClicked, currentDocID, documents } =
+    useContext(CurrentDocumentContext);
+  const dispatch = useAppDispatch();
+
+  const onClickShowModal = () => {
+    setDocumentClicked((documentClicked) => !documentClicked);
+  };
+
+  const onClickChangeNameHideModal = () => {
+    console.log("click");
+    const currentDocs = documents.map((doc: any) => doc.title);
+    if (currentDocs.includes(newTitle)) {
+      alert("This document name is already taken! Try another one");
+      return;
+    } else {
+      dispatch(editDocumentName(newTitle, currentDocID));
+      setNewTitle("");
+      setDocumentClicked((documentClicked) => !documentClicked);
+      console.log(documentClicked);
+    }
+  };
+
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(event.target.value);
+  };
 
   return (
-    <Wrapper>
-      <svg width="14" height="16" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M13.107 3.393c.167.167.31.393.429.678.119.286.178.548.178.786v10.286c0 .238-.083.44-.25.607a.827.827 0 0 1-.607.25h-12a.827.827 0 0 1-.607-.25.827.827 0 0 1-.25-.607V.857C0 .62.083.417.25.25A.827.827 0 0 1 .857 0h8c.238 0 .5.06.786.179.286.119.512.261.678.428l2.786 2.786ZM9.143 1.214v3.357H12.5c-.06-.172-.125-.294-.196-.366L9.509 1.411c-.072-.072-.194-.137-.366-.197Zm3.428 13.643V5.714H8.857a.827.827 0 0 1-.607-.25.827.827 0 0 1-.25-.607V1.143H1.143v13.714H12.57Z"
-          fill="#FFF"
-        />
-      </svg>
-      <Text>Document Name</Text>
-      <DocumentName>{!deleteClicked && currentDocTitle}.md</DocumentName>
-    </Wrapper>
+    <>
+      <Document onClick={onClickShowModal}>
+        <svg width="14" height="16" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.107 3.393c.167.167.31.393.429.678.119.286.178.548.178.786v10.286c0 .238-.083.44-.25.607a.827.827 0 0 1-.607.25h-12a.827.827 0 0 1-.607-.25.827.827 0 0 1-.25-.607V.857C0 .62.083.417.25.25A.827.827 0 0 1 .857 0h8c.238 0 .5.06.786.179.286.119.512.261.678.428l2.786 2.786ZM9.143 1.214v3.357H12.5c-.06-.172-.125-.294-.196-.366L9.509 1.411c-.072-.072-.194-.137-.366-.197Zm3.428 13.643V5.714H8.857a.827.827 0 0 1-.607-.25.827.827 0 0 1-.25-.607V1.143H1.143v13.714H12.57Z"
+            fill="#FFF"
+          />
+        </svg>
+        <Text>Document Name</Text>
+        <DocumentName>{!deleteClicked && currentDocTitle}.md</DocumentName>
+      </Document>
+      {documentClicked && (
+        <WrapperModal>
+          <h4>New document name:</h4>
+          <input
+            type="text"
+            placeholder="Document Name"
+            onChange={changeHandler}
+            value={newTitle}
+          />
+          <button onClick={onClickChangeNameHideModal}>Confirm</button>
+        </WrapperModal>
+      )}
+    </>
   );
 };
 
-const Wrapper = styled.div`
+const Document = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   margin-left: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 
   svg {
     grid-area: 1 / 1 / 3 / 2;
@@ -44,4 +93,47 @@ const DocumentName = styled.div`
   font-size: 15px;
   grid-area: 2 / 2 / 3 / 3;
   color: #fff;
+`;
+
+const WrapperModal = styled.div`
+  background: #c1c4cb;
+  width: 340px;
+  height: 200px;
+  border-radius: 4px;
+  position: fixed;
+  left: 35%;
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    outline: none;
+    border: none;
+    width: 200px;
+    height: 30px;
+    border-radius: 4px;
+    margin-bottom: 50px;
+    margin-top: 30px;
+  }
+
+  button {
+    border: none;
+    background-color: #e46643;
+    width: 202px;
+    height: 40px;
+    font-size: 15px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button:hover {
+      background: ${(props) => props.theme.orangeHover};
+      transition: 0.3s ease-in;
+    }
+  }
 `;

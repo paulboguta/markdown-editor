@@ -61,7 +61,7 @@ export const HomePage = () => {
       setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getDocuments();
-  }, [menuClicked, showNewDocumentForm, deleteClicked]);
+  }, [menuClicked, showNewDocumentForm, deleteClicked, currentDocTitle]);
 
   const onClickDoc = (event: React.MouseEvent<HTMLButtonElement>) => {
     const currentDoc = documents.filter((doc: any) => {

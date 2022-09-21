@@ -3,6 +3,7 @@ import {
   CREATE_DOCUMENT,
   DELETE_DOCUMENT,
   EDIT_DOCUMENT,
+  EDIT_DOCUMENT_NAME,
 } from "../actions/documentActions";
 
 const initialState: IDocumentsState = {
@@ -27,6 +28,14 @@ const documentReducer = (state = initialState, action: any) => {
             return [...state.documents, { text: action.newText }];
           }
           return state.documents;
+        }),
+      ];
+    case EDIT_DOCUMENT_NAME:
+      return [
+        state.documents?.map((doc) => {
+          if (doc.title === action.title) {
+            return [...state.documents, { title: action.newTitle }];
+          }
         }),
       ];
     case DELETE_DOCUMENT:

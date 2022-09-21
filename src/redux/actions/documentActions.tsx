@@ -10,6 +10,7 @@ import { AppDispatch } from "../store";
 
 export const CREATE_DOCUMENT = "CREATE_DOCUMENT";
 export const EDIT_DOCUMENT = "EDIT_DOCUMENT";
+export const EDIT_DOCUMENT_NAME = "EDIT_DOCUMENT_NAME";
 export const DELETE_DOCUMENT = "DELETE_DOCUMENT";
 
 export const createDocument =
@@ -35,6 +36,18 @@ export const editDocument =
     dispatch({
       type: EDIT_DOCUMENT,
       newText: newText,
+    });
+  };
+
+export const editDocumentName =
+  (newTitle: string, id: string) => async (dispatch: AppDispatch) => {
+    const docRef = doc(db, "Documents", `${id}`);
+    await updateDoc(docRef, {
+      title: newTitle,
+    });
+    dispatch({
+      type: EDIT_DOCUMENT,
+      newText: newTitle,
     });
   };
 
