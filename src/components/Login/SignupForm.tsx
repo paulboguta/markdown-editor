@@ -3,16 +3,23 @@ import { Logo } from "../Header/Logo";
 import { Link } from "react-router-dom";
 import { auth } from "../../config/config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const SignupForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
-  const signUpWithEmailAndPassword = async () => {
+  const signUpWithEmailAndPassword = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
+      if (user) {
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }
