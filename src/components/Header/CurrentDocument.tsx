@@ -13,6 +13,7 @@ export const CurrentDocument = () => {
     deleteClicked,
     currentDocID,
     documents,
+    onClickDoc,
     docNameChangedHandler,
   } = useContext(CurrentDocumentContext);
 
@@ -43,6 +44,10 @@ export const CurrentDocument = () => {
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setNewTitle(event.target.value);
   };
+
+  useEffect(() => {
+    setShowTitle(currentDocTitle);
+  }, [onClickDoc, newTitle]);
 
   return (
     <Wrapper>

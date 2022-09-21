@@ -58,22 +58,6 @@ export const HomePage = () => {
     darkMode ? setTheme(themeDark) : setTheme(themeLight);
   };
 
-  useEffect(() => {
-    const getDocuments = async () => {
-      const dataRef = collection(db, "Documents");
-      const q = query(dataRef, where("uid", "==", currentUser.uid));
-      const data = await getDocs(q);
-      setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getDocuments();
-  }, [
-    menuClicked,
-    showNewDocumentForm,
-    deleteClicked,
-    currentDocTitle,
-    docNameChanged,
-  ]);
-
   const onClickDoc = (event: React.MouseEvent<HTMLButtonElement>) => {
     const currentDoc = documents.filter((doc: any) => {
       return doc.title === event.currentTarget.name;
@@ -109,6 +93,22 @@ export const HomePage = () => {
       dispatch(editDocument(markdownInput, currentDocID)); // stopped typing for 10s lets update!
     }, 10000);
   };
+
+  useEffect(() => {
+    const getDocuments = async () => {
+      const dataRef = collection(db, "Documents");
+      const q = query(dataRef, where("uid", "==", currentUser.uid));
+      const data = await getDocs(q);
+      setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getDocuments();
+  }, [
+    menuClicked,
+    showNewDocumentForm,
+    deleteClicked,
+    currentDocTitle,
+    docNameChanged,
+  ]);
 
   useEffect(() => {
     setMarkdownInput(currentDocText.toString());
