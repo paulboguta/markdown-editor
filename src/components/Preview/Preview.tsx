@@ -1,6 +1,13 @@
 import styled from "styled-components";
+import { useState, useContext, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  duotoneDark,
+  duotoneLight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 interface IPreviewProps {
   showPreview: boolean;
@@ -18,6 +25,16 @@ export const Preview = ({
   markdownInput,
 }: IPreviewProps) => {
   let w = width > 768 ? "50vw" : "100vw";
+  const [styleMode, setStyleMode] = useState<React.CSSProperties>(duotoneDark);
+  const { darkMode } = useContext(DarkModeContext);
+
+  useEffect(() => {
+    if (darkMode) {
+      setStyleMode(duotoneLight);
+    } else {
+      setStyleMode(duotoneDark);
+    }
+  }, [darkMode]);
 
   return (
     <Wrapper>
@@ -27,8 +44,28 @@ export const Preview = ({
 
       <TextArea w={w}>
         <ReactMarkdown
+          // https://github.com/remarkjs/react-markdown#plugins
           children={markdownInput}
           remarkPlugins={[remarkGfm]}
+          components={{
+            code({ node, inline, className, children, ...props }) {
+              const match = /language-(\w+)/.exec(className || "");
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  children={String(children).replace(/\n$/, "")}
+                  // @ts-ignore
+                  style={styleMode}
+                  language={match[1]}
+                  PreTag="div"
+                  {...props}
+                />
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              );
+            },
+          }}
         ></ReactMarkdown>
       </TextArea>
     </Wrapper>
