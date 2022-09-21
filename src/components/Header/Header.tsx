@@ -5,6 +5,7 @@ import { CurrentDocument } from "./CurrentDocument";
 import { MenuIcon } from "./Menu/MenuIcon";
 import { useContext } from "react";
 import { MenuContext } from "../../contexts/MenuContext";
+import { useWindowDimensions } from "../../hooks/hooks";
 import { Delete } from "./Delete";
 import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
 
@@ -17,13 +18,13 @@ export const Header = () => {
   const { deleteHandler, deleteModalClicked, deleteModalHandler } = useContext(
     CurrentDocumentContext
   );
+  const windowDimensions = useWindowDimensions();
 
   return (
     <Wrapper menuClicked={menuClicked}>
       <MenuIcon />
-      <span>
-        <CurrentDocument />
-      </span>
+      {!menuClicked && <CurrentDocument />}
+      {menuClicked && +windowDimensions.width > 768 && <CurrentDocument />}
       <BtnDelete clickHandler={deleteModalHandler} />
       {deleteModalClicked && <Delete clickHandler={deleteHandler} />}
       <BtnSaveChange />
@@ -39,11 +40,7 @@ const Wrapper = styled.div<IWrapperStyle>`
   background-color: #2b2d31;
   margin-left: ${(props) => (props.menuClicked ? "250px" : "0px")};
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     height: 56px;
-
-    span {
-      display: none;
-    }
   }
 `;

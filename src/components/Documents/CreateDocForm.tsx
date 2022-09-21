@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { ChangeEvent, useContext, useState } from "react";
-import { BtnConfirmNewDocument } from "../Buttons/BtnConfirmNewDocument";
 import { createDocument } from "../../redux/actions/documentActions";
 import { useAppDispatch, useAuth } from "../../hooks/hooks";
 import { MenuContext } from "../../contexts/MenuContext";
@@ -42,9 +41,7 @@ export const CreateDocForm = () => {
         onChange={changeHandler}
         value={newDocName}
       />
-      <BtnConfirmNewDocument
-        newDocumentNameConfirmed={newDocumentNameConfirmed}
-      />
+      <button onClick={newDocumentNameConfirmed}>Confirm</button>
     </Wrapper>
   );
 };
@@ -55,12 +52,18 @@ const Wrapper = styled.div`
   height: 200px;
   border-radius: 4px;
   position: fixed;
-  left: 35%;
   top: 20%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -20%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    width: 240px;
+  }
 
   input {
     outline: none;
@@ -73,7 +76,27 @@ const Wrapper = styled.div`
   }
 
   button {
+    border: none;
     background-color: #e46643;
-    margin-right: 49px;
+    width: 202px;
+    height: 40px;
+    font-size: 15px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    margin-right: 50px;
+
+    @media (max-width: 768px) {
+      margin-right: 0px;
+    }
+
+    button:hover {
+      background: ${(props) => props.theme.orangeHover};
+      transition: 0.3s ease-in;
+    }
   }
 `;

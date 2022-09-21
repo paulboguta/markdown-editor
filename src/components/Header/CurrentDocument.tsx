@@ -45,7 +45,7 @@ export const CurrentDocument = () => {
   };
 
   return (
-    <>
+    <Wrapper>
       <Document onClick={onClickShowModal}>
         <svg width="14" height="16" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -68,9 +68,17 @@ export const CurrentDocument = () => {
           <button onClick={onClickChangeNameHideModal}>Confirm</button>
         </WrapperModal>
       )}
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  @media (max-width: 768px) {
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+`;
 
 const Document = styled.button`
   background-color: transparent;
@@ -111,12 +119,17 @@ const WrapperModal = styled.div`
   height: 200px;
   border-radius: 4px;
   position: fixed;
-  left: 35%;
   top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    width: 240px;
+  }
 
   input {
     outline: none;
