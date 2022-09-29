@@ -85,6 +85,11 @@ const Header = styled.div<IPreviewStyle>`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: absolute;
+  top: 72px;
+  @media (max-width: 768px) {
+    top: 56px;
+  }
 
   div {
     font-size: 14px;
@@ -109,5 +114,6 @@ const TextArea = styled.div<IPreviewStyle>`
   border-left: 1px solid ${(props) => props.theme.borderLeftPreview};
   color: ${(props) => props.theme.previewText};
   width: ${(props) => props.w};
+  overflow-y: auto;
   height: 100vh;
 `;

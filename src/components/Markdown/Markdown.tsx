@@ -57,6 +57,11 @@ const Header = styled.div<IHeaderStyle>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  position: absolute;
+  top: 72px;
+  @media (max-width: 768px) {
+    top: 56px;
+  }
 
   div {
     font-size: 14px;
@@ -75,6 +80,7 @@ const TextArea = styled.textarea<IHeaderStyle>`
   color: ${(props) => props.theme.markDownText};
   width: ${(props) => props.width};
   height: 100vh;
+  overflow-y: auto;
   resize: none;
   &:focus {
     outline: none;

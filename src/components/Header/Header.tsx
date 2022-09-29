@@ -43,4 +43,6 @@ const Wrapper = styled.div<IWrapperStyle>`
   @media (max-width: 768px) {
     height: 56px;
   }
+  position: fixed;
+  top: 0;
 `;
