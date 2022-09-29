@@ -13,7 +13,6 @@ export const CurrentDocument = () => {
     deleteClicked,
     currentDocID,
     documents,
-    onClickDoc,
     docNameChangedHandler,
   } = useContext(CurrentDocumentContext);
 
@@ -73,7 +72,17 @@ export const CurrentDocument = () => {
             onChange={changeHandler}
             value={newTitle}
           />
-          <button onClick={onClickChangeNameHideModal}>Confirm</button>
+          <ButtonConfirm onClick={onClickChangeNameHideModal}>
+            Confirm
+          </ButtonConfirm>
+          <ButtonX onClick={onClickShowModal}>
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+              <g fill="#FFF" fill-rule="evenodd">
+                <path d="M2.1.686 23.315 21.9l-1.415 1.415L.686 2.1z" />
+                <path d="M.686 21.9 21.9.685l1.415 1.415L2.1 23.314z" />
+              </g>
+            </svg>
+          </ButtonX>
         </WrapperModal>
       )}
     </Wrapper>
@@ -136,7 +145,7 @@ const WrapperModal = styled.div`
   justify-content: center;
 
   @media (max-width: 768px) {
-    width: 240px;
+    width: 270px;
   }
 
   input {
@@ -148,23 +157,32 @@ const WrapperModal = styled.div`
     margin-bottom: 50px;
     margin-top: 30px;
   }
+`;
 
-  button {
-    border: none;
-    background-color: #e46643;
-    width: 202px;
-    height: 40px;
-    font-size: 15px;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+const ButtonX = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+`;
 
-    button:hover {
-      background: ${(props) => props.theme.orangeHover};
-      transition: 0.3s ease-in;
-    }
+const ButtonConfirm = styled.button`
+  border: none;
+  background-color: #e46643;
+  width: 202px;
+  height: 40px;
+  font-size: 15px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: ${(props) => props.theme.orangeHover};
+    transition: 0.3s ease-in;
   }
 `;
