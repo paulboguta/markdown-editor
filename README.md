@@ -1,9 +1,9 @@
 ## Table of contents
 
-  - [Functionalities](#functionalities)
-  - [Links](#links)
-  - [Built with](#built-with)
-  - [Author](#author)
+- [Functionalities](#functionalities)
+- [Links](#links)
+- [Built with](#built-with)
+- [Author](#author)
 
 ### Functionalities
 
@@ -18,9 +18,8 @@ functionalities so far:
 
 todo:
 
-- email/password validation + forget password 
+- email/password validation + forget password
 
-### Links 
 - Live Site URL: [https://markdown-editor-pawelboguta.netlify.app/](https://markdown-editor-pawelboguta.netlify.app/)
 
 ### Built with
@@ -35,4 +34,3 @@ todo:
 - Website - [https://pawelboguta.netlify.app/](https://pawelboguta.netlify.app/)
 
 This is a solution to the [In-browser markdown editor challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/inbrowser-markdown-editor-r16TrrQX9). I used design and assets provided.
-
