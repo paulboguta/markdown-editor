@@ -44,7 +44,15 @@ export const CreateDocForm = () => {
         onChange={changeHandler}
         value={newDocName}
       />
-      <button onClick={newDocumentNameConfirmed}>Confirm</button>
+      <ButtonNewDoc onClick={newDocumentNameConfirmed}>Confirm</ButtonNewDoc>
+      <ButtonX onClick={newDocumentClicked}>
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#FFF" fill-rule="evenodd">
+            <path d="M2.1.686 23.315 21.9l-1.415 1.415L.686 2.1z" />
+            <path d="M.686 21.9 21.9.685l1.415 1.415L2.1 23.314z" />
+          </g>
+        </svg>
+      </ButtonX>
     </Wrapper>
   );
 };
@@ -65,7 +73,7 @@ const Wrapper = styled.div`
   justify-content: center;
 
   @media (max-width: 768px) {
-    width: 240px;
+    width: 260px;
   }
 
   input {
@@ -77,29 +85,36 @@ const Wrapper = styled.div`
     margin-bottom: 50px;
     margin-top: 30px;
   }
+`;
 
-  button {
-    border: none;
-    background-color: #e46643;
-    width: 202px;
-    height: 40px;
-    font-size: 15px;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 60px;
-    margin-right: 50px;
+const ButtonNewDoc = styled.button`
+  border: none;
+  background-color: ${(props) => props.theme.orange};
+  width: 202px;
+  height: 40px;
+  font-size: 15px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    @media (max-width: 768px) {
-      margin-right: 0px;
-    }
-
-    button:hover {
-      background: ${(props) => props.theme.orangeHover};
-      transition: 0.3s ease-in;
-    }
+  @media (max-width: 768px) {
+    margin-right: 0px;
   }
+
+  &:hover {
+    background: ${(props) => props.theme.orangeHover};
+    transition: 0.3s ease-in;
+  }
+`;
+
+const ButtonX = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 10px;
 `;

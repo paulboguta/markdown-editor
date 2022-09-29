@@ -49,29 +49,29 @@ export const MainLayout = () => {
           markdownInput={markdownInput}
         />
       )}
-      <button onClick={clickHandler}>
+      <Button onClick={clickHandler}>
         {!showPreview && <img src={IconShow} />}
         {showPreview && <img src={IconHide} />}
-      </button>
+      </Button>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   display: flex;
+`;
 
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: 86px;
-    right: 20px;
+const Button = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 86px;
+  right: 20px;
 
-    @media (max-width: 768px) {
-      top: 70px;
-    }
+  @media (max-width: 768px) {
+    top: 70px;
   }
 `;
