@@ -1,10 +1,5 @@
 import { IDocumentsState } from "../../Interfaces";
-import {
-  CREATE_DOCUMENT,
-  DELETE_DOCUMENT,
-  EDIT_DOCUMENT,
-  EDIT_DOCUMENT_NAME,
-} from "../actions/documentActions";
+
 
 const initialState: IDocumentsState = {
   documents: [],
@@ -12,7 +7,7 @@ const initialState: IDocumentsState = {
 
 const documentReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case CREATE_DOCUMENT:
+    case "CREATE_DOCUMENT":
       return [
         ...state.documents,
         {
@@ -21,7 +16,7 @@ const documentReducer = (state = initialState, action: any) => {
           text: "",
         },
       ];
-    case EDIT_DOCUMENT:
+    case "EDIT_DOCUMENT":
       return [
         state.documents?.map((doc) => {
           if (doc.title === action.title) {
@@ -30,7 +25,7 @@ const documentReducer = (state = initialState, action: any) => {
           return state.documents;
         }),
       ];
-    case EDIT_DOCUMENT_NAME:
+    case "EDIT_DOCUMENT_NAME":
       return [
         state.documents?.map((doc) => {
           if (doc.title === action.title) {
@@ -38,7 +33,7 @@ const documentReducer = (state = initialState, action: any) => {
           }
         }),
       ];
-    case DELETE_DOCUMENT:
+    case "DELETE_DOCUMENT":
       return [
         state.documents?.filter((doc) => doc.title !== action.documentName),
       ];

@@ -8,10 +8,7 @@ import {
 import { db } from "../../config/config";
 import { AppDispatch } from "../store";
 
-export const CREATE_DOCUMENT = "CREATE_DOCUMENT";
-export const EDIT_DOCUMENT = "EDIT_DOCUMENT";
-export const EDIT_DOCUMENT_NAME = "EDIT_DOCUMENT_NAME";
-export const DELETE_DOCUMENT = "DELETE_DOCUMENT";
+
 
 export const createDocument =
   (newDocumentTitle: string, uid: string) => async (dispatch: AppDispatch) => {
@@ -21,10 +18,10 @@ export const createDocument =
       uid: uid,
     });
     dispatch({
-      type: CREATE_DOCUMENT,
+      type: "CREATE_DOCUMENT",
       newDoc: newDocumentTitle,
       uid: uid,
-    });
+    })
   };
 
 export const editDocument =
@@ -34,7 +31,7 @@ export const editDocument =
       text: newText,
     });
     dispatch({
-      type: EDIT_DOCUMENT,
+      type: "EDIT_DOCUMENT",
       newText: newText,
     });
   };
@@ -46,7 +43,7 @@ export const editDocumentName =
       title: newTitle,
     });
     dispatch({
-      type: EDIT_DOCUMENT,
+      type: "EDIT_DOCUMENT",
       newText: newTitle,
     });
   };
@@ -57,7 +54,7 @@ export const deleteDocument =
     await deleteDoc(docRef);
 
     dispatch({
-      type: DELETE_DOCUMENT,
+      type: "DELETE_DOCUMENT",
       documentName: documentName,
     });
   };
