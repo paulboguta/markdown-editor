@@ -1,6 +1,5 @@
 import React from "react";
-import { ThemeProvider } from "styled-components";
-import { ITheme } from "./styles.types";
+import { ThemeProvider, ITheme } from "styled-components";
 
 interface IThemeProps {
   children: React.ReactNode;
