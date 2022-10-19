@@ -2,6 +2,8 @@ import { useState, ChangeEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "components/Buttons/Button";
 import { login } from "features/auth/auth.service";
+import { useAppDispatch } from "hooks/hooks";
+import { loginUser } from "redux/actions/userActions";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { Background, Input, MoveToLogin, WrapperForm } from "./Login.styles";
 
@@ -9,11 +11,13 @@ export const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const loginUser = async () => {
+  const onSubmit = async () => {
     try {
-      await login(email, password);
+      const user = await login(email, password);
+      dispatch(loginUser(email, user.user.uid));
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -58,7 +62,7 @@ export const LoginForm = () => {
           </Input>
         </form>
         <Button
-          onClick={loginUser}
+          onClick={onSubmit}
           backgroundColor="#e46643"
           width="202px"
           height="40px"

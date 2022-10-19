@@ -8,20 +8,23 @@ import {
   WrapperForm,
 } from "pages/Login/Login.styles";
 import { signup } from "features/auth/auth.service";
+import { useAppDispatch } from "hooks/hooks";
+import { signUpUser } from "redux/actions/userActions";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 
 export const SignupForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const navigate = useNavigate();
 
-  const signUpUser = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
       const user = await signup(email, password);
-      if (user) {
-        navigate("/");
-      }
+      dispatch(signUpUser(email, user.user.uid));
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +61,7 @@ export const SignupForm = () => {
           </Input>
 
           <Button
-            onClick={signUpUser}
+            onClick={onSubmit}
             backgroundColor="#e46643"
             width="202px"
             height="40px"
