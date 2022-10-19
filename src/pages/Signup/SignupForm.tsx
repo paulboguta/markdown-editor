@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, useState } from "react";
 import { Button } from "components/Buttons/Button";
 import {
@@ -8,7 +7,7 @@ import {
   MoveToLogin,
   WrapperForm,
 } from "pages/Login/Login.styles";
-import { auth } from "../../config/config";
+import { signup } from "features/auth/auth.service";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 
 export const SignupForm = () => {
@@ -16,12 +15,10 @@ export const SignupForm = () => {
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const signUpWithEmailAndPassword = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const signUpUser = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
+      const user = await signup(email, password);
       if (user) {
         navigate("/");
       }
@@ -61,7 +58,7 @@ export const SignupForm = () => {
           </Input>
 
           <Button
-            onClick={signUpWithEmailAndPassword}
+            onClick={signUpUser}
             backgroundColor="#e46643"
             width="202px"
             height="40px"

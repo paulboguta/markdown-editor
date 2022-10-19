@@ -1,9 +1,8 @@
 import { useState, ChangeEvent } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "components/Buttons/Button";
+import { login } from "features/auth/auth.service";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
-import { auth } from "../../config/config";
 import { Background, Input, MoveToLogin, WrapperForm } from "./Login.styles";
 
 export const LoginForm = () => {
@@ -12,9 +11,9 @@ export const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const login = async () => {
+  const loginUser = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await login(email, password);
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -59,7 +58,7 @@ export const LoginForm = () => {
           </Input>
         </form>
         <Button
-          onClick={login}
+          onClick={loginUser}
           backgroundColor="#e46643"
           width="202px"
           height="40px"
