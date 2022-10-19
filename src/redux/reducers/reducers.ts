@@ -1,6 +1,5 @@
 import { IDocumentsState } from "../../Interfaces";
 
-
 const initialState: IDocumentsState = {
   documents: [],
 };
@@ -31,6 +30,7 @@ const documentReducer = (state = initialState, action: any) => {
           if (doc.title === action.title) {
             return [...state.documents, { title: action.newTitle }];
           }
+          return state.documents;
         }),
       ];
     case "DELETE_DOCUMENT":
