@@ -29,6 +29,7 @@ export const ButtonStyled = styled.button<IButtonStyledProps>`
   @media (max-width: 768px) {
     margin-right: ${(props) => props.mobileMr};
     width: ${(props) => props.mobileWidth};
+    right: ${(props) => props.mobileRight};
   }
 
   @media (min-width: 768px) {
@@ -36,21 +37,20 @@ export const ButtonStyled = styled.button<IButtonStyledProps>`
   }
 `;
 
-export const ButtonDeleteStyled = styled.button`
-  background-color: transparent;
-  border: transparent;
-  cursor: pointer;
+// export const ButtonDeleteStyled = styled.button`
+//   background-color: ${(props) => props.backgroundColor};
+//   border: transparent;
+//   cursor: pointer;
 
-  position: absolute;
-  right: 190px;
+//   position: absolute;
+//   right: ${(props) => props.right};
+//   @media (max-width: 768px) {
+//     right: 90px;
+//   }
 
-  @media (max-width: 768px) {
-    right: 90px;
-  }
-
-  svg:hover path {
-    stroke: transparent;
-    fill: ${(props) => props.theme.orange};
-    transition: 0.3s ease-in;
-  }
-`;
+//   svg:hover path {
+//     stroke: transparent;
+//     fill: ${(props) => props.theme.orange};
+//     transition: 0.3s ease-in;
+//   }
+// `;

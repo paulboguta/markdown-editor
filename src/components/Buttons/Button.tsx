@@ -24,6 +24,7 @@ export const Button = ({
   left,
   top,
   bottom,
+  mobileRight,
 }: IButtonProps) => {
   return (
     <ButtonStyled
@@ -49,6 +50,7 @@ export const Button = ({
       right={right}
       top={top}
       bottom={bottom}
+      mobileRight={mobileRight}
     >
       {children}
     </ButtonStyled>

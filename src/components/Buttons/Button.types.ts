@@ -24,8 +24,5 @@ export interface IButtonStyledProps {
   mobileWidth?: string;
   desktopWidth?: string;
   mobileMr?: string;
-}
-
-export interface IButtonDeleteProps {
-  onClick?(): void;
+  mobileRight?: string;
 }
