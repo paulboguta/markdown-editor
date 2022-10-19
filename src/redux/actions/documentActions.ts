@@ -1,27 +1,40 @@
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { createDocument } from "features/documents/documents.service";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/config";
 import { AppDispatch } from "../store";
 
+// export const getDocumentsFromFirebaseAction =
+//   (uid: string) => async (dispatch: AppDispatch) => {
+//     dispatch({
+//       type: "FETCHING_DOCUMENTS_FIREBASE",
+//       loading: true,
+//       error: null,
+//     });
+//   };
 
-
-export const createDocument =
+export const createDocumentAction =
   (newDocumentTitle: string, uid: string) => async (dispatch: AppDispatch) => {
-    await addDoc(collection(db, "Documents"), {
-      title: newDocumentTitle,
-      text: "",
-      uid: uid,
-    });
     dispatch({
-      type: "CREATE_DOCUMENT",
-      newDoc: newDocumentTitle,
-      uid: uid,
-    })
+      type: "CREATE_DOCUMENT_INIT",
+      loading: true,
+      error: null,
+    });
+    try {
+      const id = await createDocument(newDocumentTitle, uid);
+      dispatch({
+        type: "CREATE_DOCUMENT_SUCCESS",
+        newDoc: newDocumentTitle,
+        id,
+        loading: false,
+        error: null,
+      });
+    } catch (e) {
+      dispatch({
+        type: "CREATE_DOCUMENT_ERROR",
+        loading: false,
+        error: e,
+      });
+    }
   };
 
 export const editDocument =
@@ -32,7 +45,7 @@ export const editDocument =
     });
     dispatch({
       type: "EDIT_DOCUMENT",
-      newText: newText,
+      newText,
     });
   };
 
@@ -55,6 +68,6 @@ export const deleteDocument =
 
     dispatch({
       type: "DELETE_DOCUMENT",
-      documentName: documentName,
+      documentName,
     });
   };

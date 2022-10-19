@@ -1,61 +1,11 @@
 import styled from "styled-components";
-import { ChangeEvent, useContext, useState } from "react";
-import { createDocument } from "../../redux/actions/documentActions";
-import { useAppDispatch, useAuth } from "../../hooks/hooks";
-import { MenuContext } from "../../contexts/MenuContext";
-import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
-
-export const CreateDocForm = () => {
-  const [newDocName, setNewDocName] = useState<string>("");
-  const dispatch = useAppDispatch();
-  const currentUser = useAuth();
-  const { newDocumentClicked } = useContext(MenuContext);
-  const { documents } = useContext(CurrentDocumentContext);
-
-  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewDocName(event.target.value);
-  };
-
-  const newDocumentNameConfirmed = () => {
-    const currentDocs = documents.map((doc: any) => doc.title);
-    if (currentDocs.includes(newDocName)) {
-      alert("This document name is already taken! Try another one");
-      return;
-    } else if (newDocName.length > 15) {
-      alert("Document name can't exceed 15 characters. Try another name");
-      return;
-    } else if (newDocName.length < 3) {
-      alert("Document name has to be at least 3 characters. Try another name");
-      return;
-    } else {
-      dispatch(createDocument(newDocName, currentUser.uid));
-    }
-
-    newDocumentClicked();
-    setNewDocName("");
-  };
-
-  return (
-    <Wrapper>
-      <h4>New document name:</h4>
-      <input
-        type="text"
-        placeholder="Document Name"
-        onChange={changeHandler}
-        value={newDocName}
-      />
-      <ButtonNewDoc onClick={newDocumentNameConfirmed}>Confirm</ButtonNewDoc>
-      <ButtonX onClick={newDocumentClicked}>
-        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#FFF" fill-rule="evenodd">
-            <path d="M2.1.686 23.315 21.9l-1.415 1.415L.686 2.1z" />
-            <path d="M.686 21.9 21.9.685l1.415 1.415L2.1 23.314z" />
-          </g>
-        </svg>
-      </ButtonX>
-    </Wrapper>
-  );
-};
+import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { Button } from "components/Buttons/Button";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { MenuContext } from "contexts/MenuContext";
+import { createDocumentAction } from "../../redux/actions/documentActions";
+import { useAppDispatch } from "../../hooks/hooks";
 
 const Wrapper = styled.div`
   background: #c1c4cb;
@@ -73,7 +23,7 @@ const Wrapper = styled.div`
   justify-content: center;
 
   @media (max-width: 768px) {
-    width: 260px;
+    width: 280px;
   }
 
   input {
@@ -87,34 +37,83 @@ const Wrapper = styled.div`
   }
 `;
 
-const ButtonNewDoc = styled.button`
-  border: none;
-  background-color: ${(props) => props.theme.orange};
-  width: 202px;
-  height: 40px;
-  font-size: 15px;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const CreateDocForm = () => {
+  const [newDocName, setNewDocName] = useState<string>("");
+  const [uid, setUid] = useState("");
+  const dispatch = useAppDispatch();
+  const userID = useSelector((state: RootState) => state.userReducer.uid);
+  const { newDocumentButtonClicked } = useContext(MenuContext);
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewDocName(event.target.value);
+  };
 
-  @media (max-width: 768px) {
-    margin-right: 0px;
-  }
+  // const newDocumentNameConfirmed = () => {
+  //   const currentDocs = documents.map((doc: any) => doc.title);
+  //   if (currentDocs.includes(newDocName)) {
+  //     alert("This document name is already taken! Try another one");
+  //     return;
+  //   } else if (newDocName.length > 15) {
+  //     alert("Document name can't exceed 15 characters. Try another name");
+  //     return;
+  //   } else if (newDocName.length < 3) {
+  //     alert("Document name has to be at least 3 characters. Try another name");
+  //     return;
+  //   } else {
+  //     dispatch(createDocument(newDocName, currentUser.uid));
+  //   }
 
-  &:hover {
-    background: ${(props) => props.theme.orangeHover};
-    transition: 0.3s ease-in;
-  }
-`;
+  //   newDocumentClicked();
+  //   setNewDocName("");
+  // };
 
-const ButtonX = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-`;
+  const onClickCreateDoc = () => {
+    dispatch(createDocumentAction(newDocName, uid));
+  };
+
+  useEffect(() => {
+    setUid(userID);
+  }, [userID]);
+
+  return (
+    <Wrapper>
+      <h4>New document name:</h4>
+      <input
+        type="text"
+        placeholder="Document Name"
+        onChange={changeHandler}
+        value={newDocName}
+      />
+      <Button
+        onClick={onClickCreateDoc}
+        backgroundColor="#e46643"
+        width="202px"
+        height="40px"
+        mt="0px"
+        fontSize="15px"
+        color="white"
+        borderRadius="4px"
+        backgroundColorHover="#f39765"
+        flex="flex"
+        alignItems="center"
+        justifyContent="center"
+        mobileMr="0px"
+      >
+        Confirm
+      </Button>
+      <Button
+        onClick={newDocumentButtonClicked}
+        backgroundColor="transparent"
+        position="absolute"
+        top="10px"
+        left="10px"
+      >
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#FFF" fillRule="evenodd">
+            <path d="M2.1.686 23.315 21.9l-1.415 1.415L.686 2.1z" />
+            <path d="M.686 21.9 21.9.685l1.415 1.415L2.1 23.314z" />
+          </g>
+        </svg>
+      </Button>
+    </Wrapper>
+  );
+};

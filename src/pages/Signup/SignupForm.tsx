@@ -23,7 +23,8 @@ export const SignupForm = () => {
     event.preventDefault();
     try {
       const user = await signup(email, password);
-      dispatch(signUpUser(email, user.user.uid));
+      const { uid } = user.user;
+      dispatch(signUpUser(email, uid));
       navigate("/");
     } catch (error) {
       console.log(error);
