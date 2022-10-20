@@ -8,9 +8,9 @@ const initialState: IUser = {
 
 const userReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case "LOGIN_USER":
+    case "LOGIN_USER_SUCCESS":
       return { email: action.email, uid: action.uid };
-    case "REGISTER_USER":
+    case "REGISTER_USER_SUCCESS":
       return { email: action.email, uid: action.uid };
     default:
       return state;
