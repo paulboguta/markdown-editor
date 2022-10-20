@@ -36,21 +36,3 @@ export const ButtonStyled = styled.button<IButtonStyledProps>`
     width: ${(props) => props.desktopWidth};
   }
 `;
-
-// export const ButtonDeleteStyled = styled.button`
-//   background-color: ${(props) => props.backgroundColor};
-//   border: transparent;
-//   cursor: pointer;
-
-//   position: absolute;
-//   right: ${(props) => props.right};
-//   @media (max-width: 768px) {
-//     right: 90px;
-//   }
-
-//   svg:hover path {
-//     stroke: transparent;
-//     fill: ${(props) => props.theme.orange};
-//     transition: 0.3s ease-in;
-//   }
-// `;
