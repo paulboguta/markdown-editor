@@ -2,9 +2,10 @@ import { IDocumentsState } from "../../types/types";
 
 const initialState: IDocumentsState = {
   documents: [],
+  loading: false,
 };
 
-export const createDocumentReducer = (state = initialState, action: any) => {
+const documentReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case "CREATE_DOCUMENT_SUCCESS":
       return [
@@ -17,28 +18,14 @@ export const createDocumentReducer = (state = initialState, action: any) => {
           error: action.error,
         },
       ];
-    case "CREATE_DOCUMENT_INIT":
-      return [
-        ...state.documents,
-        {
-          title: "",
-          id: "",
-          text: "",
-          loading: action.loading,
-          error: action.error,
-        },
-      ];
-    case "CREATE_DOCUMENT_ERROR":
-      return [
-        ...state.documents,
-        {
-          title: "",
-          id: "",
-          text: "",
-          loading: action.loading,
-          error: action.error,
-        },
-      ];
+
+    case "FETCHING_DOCUMENTS": {
+      return [{ loading: action.loading }];
+    }
+
+    case "FETCHING_DOCUMENTS_SUCCESS": {
+      return [{ ...action.documents, loading: action.loading }];
+    }
     // case "EDIT_DOCUMENT":
     //   return [
     //     state.documents?.map((doc) => {
@@ -65,3 +52,5 @@ export const createDocumentReducer = (state = initialState, action: any) => {
       return state;
   }
 };
+
+export default documentReducer;

@@ -4,6 +4,7 @@ import { Button } from "components/Buttons/Button";
 import { login } from "features/auth/auth.service";
 import { useAppDispatch } from "hooks/hooks";
 import { loginUser } from "redux/actions/userActions";
+import { getDocumentsAction } from "redux/actions/documentActions";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { Background, Input, MoveToLogin, WrapperForm } from "./Login.styles";
 
@@ -17,7 +18,9 @@ export const LoginForm = () => {
   const onSubmit = async () => {
     try {
       const user = await login(email, password);
-      dispatch(loginUser(email, user.user.uid));
+      const { uid } = user.user;
+      dispatch(loginUser(email, uid));
+      dispatch(getDocumentsAction(uid));
       navigate("/");
     } catch (error) {
       console.log(error);

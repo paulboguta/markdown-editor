@@ -1,16 +1,29 @@
-import { createDocument } from "features/documents/documents.service";
+import {
+  createDocument,
+  getDocumentsFromFirebase,
+} from "features/documents/documents.service";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/config";
 import { AppDispatch } from "../store";
 
-// export const getDocumentsFromFirebaseAction =
-//   (uid: string) => async (dispatch: AppDispatch) => {
-//     dispatch({
-//       type: "FETCHING_DOCUMENTS_FIREBASE",
-//       loading: true,
-//       error: null,
-//     });
-//   };
+export const getDocumentsAction =
+  (uid: string) => async (dispatch: AppDispatch) => {
+    dispatch({
+      type: "FETCHING_DOCUMENTS",
+      loading: true,
+    });
+
+    try {
+      const data = await getDocumentsFromFirebase(uid);
+      dispatch({
+        type: "FETCHING_DOCUMENTS_SUCCESS",
+        documents: data,
+        loading: false,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 export const createDocumentAction =
   (newDocumentTitle: string, uid: string) => async (dispatch: AppDispatch) => {

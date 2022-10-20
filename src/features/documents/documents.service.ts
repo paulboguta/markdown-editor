@@ -1,23 +1,14 @@
 import { db } from "config/config";
 import { validateNewDoc } from "features/validation/validation";
-import {
-  collection,
-  doc,
-  DocumentData,
-  getDocs,
-  QueryDocumentSnapshot,
-  setDoc,
-} from "firebase/firestore";
+import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
 
 export const getDocumentsFromFirebase = async (uid: string) => {
-  const dataRef = collection(db, "Users", uid, "Documents");
-  const data = await getDocs(dataRef);
-  const docs = data.docs.map(
-    (document: QueryDocumentSnapshot<DocumentData>) => ({
-      ...document.data(),
-      title: document.data().title,
-    })
-  );
+  const q = query(collection(db, `Users`, uid, "Documents"));
+  const querySnapshot = await getDocs(q);
+  const docs: any[] = [];
+  querySnapshot.forEach((document) => {
+    docs.push(document.data());
+  });
   return docs;
 };
 
@@ -25,10 +16,10 @@ export const createDocument = async (title: string, uid: string) => {
   const docs = getDocumentsFromFirebase(uid);
   // validate new document title
   const validation = await validateNewDoc(title, docs);
+  const docsRef = collection(db, "Users", uid, "Documents");
+  const docRef = doc(docsRef);
+  const docID = docRef.id;
   if (validation) {
-    const docsRef = collection(db, "Users", uid, "Documents");
-    const docRef = doc(docsRef);
-    const docID = docRef.id;
     await setDoc(
       doc(docsRef, `${docID}`),
       {
@@ -38,6 +29,6 @@ export const createDocument = async (title: string, uid: string) => {
       },
       { merge: true }
     );
-    return docID;
   }
+  return docID;
 };
