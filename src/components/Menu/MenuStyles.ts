@@ -15,39 +15,6 @@ export const WrapperSlider = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 30px;
-
-  ul {
-    height: 50vh;
-    margin-top: 30px;
-    margin-bottom: 100px;
-    overflow-y: auto;
-    background-color: #2b2d31;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 50%;
-    height: 25px;
-    margin-top: 5px;
-    button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      color: #fff;
-      font-family: "Roboto Mono", sans-serif;
-
-      &:hover {
-        color: ${(props) => props.theme.orange};
-        transition: 0.3s ease-in;
-      }
-    }
-  }
 `;
 
 export const HS = styled.div`
@@ -60,11 +27,11 @@ export const HS = styled.div`
   margin-top: 10px;
 `;
 
-// export const Username = styled.div`
-//   color: #fff;
-//   opacity: 0.5;
-//   margin-top: 20px;
-// `;
+export const Username = styled.div`
+  color: #fff;
+  opacity: 0.5;
+  margin-top: 20px;
+`;
 
 export const WrapperMenuIcon = styled.button`
   display: flex;

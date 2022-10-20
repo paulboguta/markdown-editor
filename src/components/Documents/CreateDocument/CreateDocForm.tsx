@@ -5,9 +5,9 @@ import { RootState } from "redux/store";
 import { MenuContext } from "contexts/MenuContext";
 import { validateNewDoc } from "features/validation/validation";
 import { Wrapper } from "./CreateDocFormStyles";
-import { createDocumentAction } from "../../redux/actions/documentActions";
-import { useAppDispatch } from "../../hooks/hooks";
-import { ReactComponent as IconClose } from "../../assets/icon-close.svg";
+import { createDocumentAction } from "../../../redux/actions/documentActions";
+import { useAppDispatch } from "../../../hooks/hooks";
+import { ReactComponent as IconClose } from "../../../assets/icon-close.svg";
 
 export const CreateDocForm = () => {
   const [newDocName, setNewDocName] = useState<string>("");
