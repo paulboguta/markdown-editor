@@ -2,6 +2,8 @@ import { getCurrentDocumentData } from "features/documents/documents.service";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { useAppDispatch } from "hooks/hooks";
+import { setCurrentDocumentAction } from "redux/actions/currentDocumentActions";
 import { ReactComponent as IconDocument } from "../../../assets/icon-document.svg";
 import { Wrapper } from "./DocumentsList.styles";
 
@@ -10,6 +12,7 @@ export const DocumentsList = () => {
   const [docs, setDocs] = useState<string[]>([]);
   const { loading, documents }: { loading: boolean; documents: string[] } =
     useSelector((state: RootState) => state.documentReducer);
+  const dispatch = useAppDispatch();
 
   // set loading state
   useEffect(() => {
@@ -22,7 +25,8 @@ export const DocumentsList = () => {
   }, [documents]);
 
   const onClickDocument = (event: React.MouseEvent<HTMLButtonElement>) => {
-    getCurrentDocumentData(event.currentTarget.id, docs);
+    const currentDoc = getCurrentDocumentData(event.currentTarget.id, docs);
+    dispatch(setCurrentDocumentAction(currentDoc));
   };
   return (
     <Wrapper>

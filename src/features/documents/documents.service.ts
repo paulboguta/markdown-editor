@@ -11,8 +11,11 @@ export const getDocumentsFromFirebase = async (uid: string) => {
   return docs;
 };
 
+export const getCurrentDocumentData = (id: string, docs: any[]) => {
+  return docs.filter((document) => document.id === id);
+};
+
 export const createDocument = async (title: string, uid: string) => {
-  // validate new document title
   const docsRef = collection(db, "Users", uid, "Documents");
   const docRef = doc(docsRef);
   const docID = docRef.id;

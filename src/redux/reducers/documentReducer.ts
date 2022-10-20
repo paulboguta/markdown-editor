@@ -7,17 +7,26 @@ const initialState: IDocumentsState = {
 
 const documentReducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case "CREATE_DOCUMENT_INIT": {
+      return {
+        documents: [...state.documents],
+        loading: true,
+      };
+    }
     case "CREATE_DOCUMENT_SUCCESS":
-      return [
-        ...state.documents,
-        {
-          title: action.newDoc,
-          id: action.id,
-          text: "",
-          loading: action.loading,
-          error: action.error,
-        },
-      ];
+      return {
+        documents: [
+          ...state.documents,
+          {
+            title: action.newDoc,
+            id: action.id,
+            text: "",
+            loading: action.loading,
+            error: action.error,
+          },
+        ],
+        loading: false,
+      };
 
     case "FETCHING_DOCUMENTS": {
       return { loading: action.loading };
