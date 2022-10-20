@@ -1,43 +1,13 @@
-import styled from "styled-components";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Button } from "components/Buttons/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { MenuContext } from "contexts/MenuContext";
 import { validateNewDoc } from "features/validation/validation";
+import { Wrapper } from "./CreateDocFormStyles";
 import { createDocumentAction } from "../../redux/actions/documentActions";
 import { useAppDispatch } from "../../hooks/hooks";
 import { ReactComponent as IconClose } from "../../assets/icon-close.svg";
-
-const Wrapper = styled.div`
-  background: #c1c4cb;
-  width: 340px;
-  height: 200px;
-  border-radius: 4px;
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -20%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  @media (max-width: 768px) {
-    width: 280px;
-  }
-
-  input {
-    outline: none;
-    border: none;
-    width: 200px;
-    height: 30px;
-    border-radius: 4px;
-    margin-bottom: 50px;
-    margin-top: 30px;
-  }
-`;
 
 export const CreateDocForm = () => {
   const [newDocName, setNewDocName] = useState<string>("");
@@ -45,30 +15,13 @@ export const CreateDocForm = () => {
   const dispatch = useAppDispatch();
   const userID = useSelector((state: RootState) => state.userReducer.uid);
   const { newDocumentButtonClicked } = useContext(MenuContext);
+
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setNewDocName(event.target.value);
   };
 
-  // const newDocumentNameConfirmed = () => {
-  //   const currentDocs = documents.map((doc: any) => doc.title);
-  //   if (currentDocs.includes(newDocName)) {
-  //     alert("This document name is already taken! Try another one");
-  //     return;
-  //   } else if (newDocName.length > 15) {
-  //     alert("Document name can't exceed 15 characters. Try another name");
-  //     return;
-  //   } else if (newDocName.length < 3) {
-  //     alert("Document name has to be at least 3 characters. Try another name");
-  //     return;
-  //   } else {
-  //     dispatch(createDocument(newDocName, currentUser.uid));
-  //   }
-
-  //   newDocumentClicked();
-  //   setNewDocName("");
-  // };
-
   const onClickCreateDoc = async () => {
+    // if validated dispatch action
     if (await validateNewDoc(newDocName, uid)) {
       dispatch(createDocumentAction(newDocName, uid));
       newDocumentButtonClicked();
