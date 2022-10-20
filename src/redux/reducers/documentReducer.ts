@@ -35,15 +35,17 @@ const documentReducer = (state = initialState, action: any) => {
     case "FETCHING_DOCUMENTS_SUCCESS": {
       return { documents: [...action.documents], loading: action.loading };
     }
-    // case "EDIT_DOCUMENT":
-    //   return [
-    //     state.documents?.map((doc) => {
-    //       if (doc.title === action.title) {
-    //         return [...state.documents, { text: action.newText }];
-    //       }
-    //       return state.documents;
-    //     }),
-    //   ];
+    case "SAVE_EDIT_DOCUMENT":
+      return {
+        documents: state.documents?.map((doc) => {
+          if (doc.id === action.id) {
+            return { text: action.newText, title: doc.title, id: doc.id };
+          }
+          return doc;
+        }),
+
+        loading: false,
+      };
     // case "EDIT_DOCUMENT_NAME":
     //   return [
     //     state.documents?.map((doc) => {

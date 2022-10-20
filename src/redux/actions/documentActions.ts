@@ -50,15 +50,17 @@ export const createDocumentAction =
     }
   };
 
-export const editDocument =
-  (newText: string, id: string) => async (dispatch: AppDispatch) => {
-    const docRef = doc(db, "Documents", `${id}`);
+export const saveEditDocument =
+  (newText: string, id: string, uid: string) =>
+  async (dispatch: AppDispatch) => {
+    const docRef = doc(db, "Users", uid, "Documents", id);
     await updateDoc(docRef, {
       text: newText,
     });
     dispatch({
-      type: "EDIT_DOCUMENT",
+      type: "SAVE_EDIT_DOCUMENT",
       newText,
+      id,
     });
   };
 
