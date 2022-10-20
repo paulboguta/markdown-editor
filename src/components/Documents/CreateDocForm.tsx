@@ -4,8 +4,10 @@ import { Button } from "components/Buttons/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { MenuContext } from "contexts/MenuContext";
+import { validateNewDoc } from "features/validation/validation";
 import { createDocumentAction } from "../../redux/actions/documentActions";
 import { useAppDispatch } from "../../hooks/hooks";
+import { ReactComponent as IconClose } from "../../assets/icon-close.svg";
 
 const Wrapper = styled.div`
   background: #c1c4cb;
@@ -66,13 +68,16 @@ export const CreateDocForm = () => {
   //   setNewDocName("");
   // };
 
-  const onClickCreateDoc = () => {
-    dispatch(createDocumentAction(newDocName, uid));
+  const onClickCreateDoc = async () => {
+    if (await validateNewDoc(newDocName, uid)) {
+      dispatch(createDocumentAction(newDocName, uid));
+      newDocumentButtonClicked();
+    }
   };
 
   useEffect(() => {
     setUid(userID);
-  }, [userID]);
+  }, [userID, newDocumentButtonClicked]);
 
   return (
     <Wrapper>
@@ -107,12 +112,7 @@ export const CreateDocForm = () => {
         top="10px"
         left="10px"
       >
-        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#FFF" fillRule="evenodd">
-            <path d="M2.1.686 23.315 21.9l-1.415 1.415L.686 2.1z" />
-            <path d="M.686 21.9 21.9.685l1.415 1.415L2.1 23.314z" />
-          </g>
-        </svg>
+        <IconClose />
       </Button>
     </Wrapper>
   );

@@ -1,10 +1,9 @@
-/* eslint-disable no-alert */
-export const validateNewDoc = async (
-  newDocName: string,
-  currentDocs: Promise<{ title: any }[]>
-) => {
-  const docs = (await currentDocs).map((doc) => doc.title);
+import { getDocumentsFromFirebase } from "features/documents/documents.service";
 
+/* eslint-disable no-alert */
+export const validateNewDoc = async (newDocName: string, uid: string) => {
+  const promise = await getDocumentsFromFirebase(uid);
+  const docs = promise.map((doc) => doc.title);
   if (docs.includes(newDocName)) {
     alert("This document name is already taken! Try another one");
     return false;
