@@ -20,11 +20,11 @@ const documentReducer = (state = initialState, action: any) => {
       ];
 
     case "FETCHING_DOCUMENTS": {
-      return [{ loading: action.loading }];
+      return { loading: action.loading };
     }
 
     case "FETCHING_DOCUMENTS_SUCCESS": {
-      return [{ ...action.documents, loading: action.loading }];
+      return { documents: [...action.documents], loading: action.loading };
     }
     // case "EDIT_DOCUMENT":
     //   return [
