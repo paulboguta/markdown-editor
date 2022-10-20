@@ -12,7 +12,7 @@ import { ReactComponent as Logo } from "../../assets/logo.svg";
 export const Menu = () => {
   const [userEmail, setUserEmail] = useState<string>("");
   const { menuClicked, newDocumentButtonClicked } = useContext(MenuContext);
-  const { email } = useSelector((state: RootState) => state.userReducer.email);
+  const { email } = useSelector((state: RootState) => state.userReducer);
 
   // set user email, documents
   useEffect(() => {
