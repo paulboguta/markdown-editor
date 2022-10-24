@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
 
 export const Header = styled.div`
   height: 42px;
-  width: 50vw;
   background-color: ${(props) => props.theme.markdownHeader};
   border-left: 1px solid ${(props) => props.theme.borderLeftPreview};
   display: flex;
@@ -46,10 +45,7 @@ export const TextArea = styled.div`
   overflow-y: auto;
   height: 100vh;
   width: 50vw;
-
-  p {
-    margin-top: 120px;
-  }
+  padding-top: 120px;
 
   @media (max-width: 768px) {
     width: 100vw;
