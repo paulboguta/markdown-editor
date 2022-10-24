@@ -1,4 +1,5 @@
-import React from "react";
+import { DarkModeContext } from "contexts/DarkModeContext";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeProvider, ITheme } from "styled-components";
 
 interface IThemeProps {
@@ -30,7 +31,16 @@ export const themeLight: ITheme = {
 };
 
 export const Theme: React.FC<IThemeProps> = ({ children }) => {
-  const theme = themeLight; // later switch between light/dark theme
+  const [theme, setTheme] = useState<ITheme>(themeLight);
+  const { darkMode } = useContext(DarkModeContext);
+
+  useEffect(() => {
+    if (darkMode) {
+      setTheme(themeLight);
+    } else {
+      setTheme(themeDark);
+    }
+  }, [darkMode]);
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };

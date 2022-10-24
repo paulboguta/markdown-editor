@@ -1,37 +1,52 @@
 import "./styles/App.css";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
-import { useEffect } from "react";
-import { GlobalStyle } from "./styles/styles";
-import { LoginForm } from "./components/Login/LoginForm";
-import { SignupForm } from "./components/Login/SignupForm";
-import { HomePage } from "./components/HomePage";
-import store from "./redux/store";
-import { useAuth } from "./hooks/hooks";
 import { Theme } from "styles/Theme";
+import { useMemo, useState } from "react";
+import { DarkModeContext } from "contexts/DarkModeContext";
+import { GlobalStyle } from "./styles/styles";
+import { LoginForm } from "./pages/Login/LoginForm";
+import { SignupForm } from "./pages/Signup/SignupForm";
+import { HomePage } from "./pages/Home/HomePage";
+import store from "./redux/store";
 
 export const App = () => {
-  const user = useAuth();
-  const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  // const user = useAuth();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      navigate("/");
-    } else {
-      navigate("/signup");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/");
+  //   } else {
+  //     navigate("/signup");
+  //   }
+  // }, []);
+
+  const changeDarkModeOnClick = (): void => {
+    setDarkMode((prev: boolean) => !prev);
+  };
+
+  const DarkModeContextValue = useMemo(
+    () => ({
+      darkMode,
+      changeDarkModeOnClick,
+    }),
+    [darkMode]
+  );
 
   return (
-    <Theme>
-      <Provider store={store}>
-        <GlobalStyle />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/signup" element={<SignupForm />} />
-        </Routes>
-      </Provider>
-    </Theme>
+    <DarkModeContext.Provider value={DarkModeContextValue}>
+      <Theme>
+        <Provider store={store}>
+          <GlobalStyle />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignupForm />} />
+          </Routes>
+        </Provider>
+      </Theme>
+    </DarkModeContext.Provider>
   );
 };
