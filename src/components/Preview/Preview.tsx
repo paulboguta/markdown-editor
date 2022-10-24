@@ -21,11 +21,7 @@ export const Preview = () => {
   );
 
   useEffect(() => {
-    if (darkMode) {
-      setStyleMode(duotoneLight);
-    } else {
-      setStyleMode(duotoneDark);
-    }
+    setStyleMode(darkMode ? duotoneLight : duotoneDark);
   }, [darkMode]);
 
   useEffect(() => {
