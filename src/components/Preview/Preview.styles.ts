@@ -1,17 +1,13 @@
 import styled from "styled-components";
 
-interface IPreviewStyle {
-  width: string;
-}
-
 export const Wrapper = styled.div`
   height: 100%;
   background-color: ${(props) => props.theme.background};
 `;
 
-export const Header = styled.div<IPreviewStyle>`
+export const Header = styled.div`
   height: 42px;
-  width: ${(props) => props.width};
+  width: 50vw;
   background-color: ${(props) => props.theme.markdownHeader};
   border-left: 1px solid ${(props) => props.theme.borderLeftPreview};
   display: flex;
@@ -19,8 +15,10 @@ export const Header = styled.div<IPreviewStyle>`
   justify-content: flex-end;
   position: absolute;
   top: 72px;
+  width: 50vw;
   @media (max-width: 768px) {
     top: 56px;
+    width: 100vw;
   }
 
   div {
@@ -40,16 +38,20 @@ export const Header = styled.div<IPreviewStyle>`
   }
 `;
 
-export const TextArea = styled.div<IPreviewStyle>`
+export const TextArea = styled.div`
   padding: 10px;
   border: none;
   border-left: 1px solid ${(props) => props.theme.borderLeftPreview};
   color: ${(props) => props.theme.previewText};
-  width: ${(props) => props.width};
   overflow-y: auto;
   height: 100vh;
+  width: 50vw;
 
   p {
     margin-top: 120px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100vw;
   }
 `;

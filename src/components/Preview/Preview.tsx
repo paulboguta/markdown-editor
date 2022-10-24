@@ -6,14 +6,12 @@ import {
   duotoneDark,
   duotoneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { IPreviewMarkdownProps } from "pages/MainLayout/MainLayout.types";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { Wrapper, Header, TextArea } from "./Preview.styles";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
-export const Preview = ({ width }: IPreviewMarkdownProps) => {
-  const w = width! > 768 ? "50vw" : "100vw";
+export const Preview = () => {
   const [markdownInput, setMarkdownInput] = useState<string>("");
   const [styleMode, setStyleMode] = useState<any>(duotoneDark);
   const { darkMode } = useContext(DarkModeContext);
@@ -36,11 +34,11 @@ export const Preview = ({ width }: IPreviewMarkdownProps) => {
 
   return (
     <Wrapper>
-      <Header width={w}>
+      <Header>
         <div>Preview</div>
       </Header>
 
-      <TextArea width={w}>
+      <TextArea>
         <ReactMarkdown
           // copied from reactmarkdown docs
           /* eslint-disable react/no-children-prop */

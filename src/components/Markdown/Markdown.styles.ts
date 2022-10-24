@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 interface IHeaderStyle {
-  width: string;
+  showPreview: boolean | undefined;
 }
 
 export const Wrapper = styled.div<IHeaderStyle>`
   height: 100%;
-  width: ${(props) => props.width};
+  width: ${(props) => (props.showPreview ? "50vw" : "100vw")};
   background-color: ${(props) => props.theme.background};
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@ export const Wrapper = styled.div<IHeaderStyle>`
 
 export const Header = styled.div<IHeaderStyle>`
   height: 42px;
-  width: ${(props) => props.width};
+  width: ${(props) => (props.showPreview ? "50vw" : "100vw")};
   background-color: ${(props) => props.theme.markdownHeader};
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@ export const TextArea = styled.textarea<IHeaderStyle>`
   padding: 10px;
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.markDownText};
-  width: ${(props) => props.width};
+  width: ${(props) => (props.showPreview ? "50vw" : "100vw")};
   margin-top: 120px;
   height: 100vh;
   overflow-y: auto;

@@ -36,13 +36,13 @@ export const Markdown = ({ showPreview }: IPreviewMarkdownProps) => {
   }, [docTitle]);
 
   return (
-    <Wrapper width={showPreview ? "50vw" : "100vw"}>
-      <Header width={showPreview ? "50vw" : "100vw"}>
+    <Wrapper showPreview={showPreview}>
+      <Header showPreview={showPreview}>
         <div>Markdown</div>
       </Header>
       <TextArea
         disabled={disableTextArea}
-        width={showPreview ? "50vw" : "100vw"}
+        showPreview={showPreview}
         name="text_area"
         value={document.text}
         onChange={onChangeInput}

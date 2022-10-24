@@ -21,17 +21,13 @@ export const MainLayout = () => {
     <Wrapper>
       {showNewDocumentForm && <CreateDocForm />}
       {/* Mobile */}
-      {windowDimensions.width < 768 && showPreview && (
-        <Preview width={windowDimensions.width} />
-      )}
+      {windowDimensions.width < 768 && showPreview && <Preview />}
       {windowDimensions.width < 768 && !showPreview && (
         <Markdown showPreview={showPreview} />
       )}
       {/* Desktop */}
       {windowDimensions.width > 768 && <Markdown showPreview={showPreview} />}
-      {windowDimensions.width > 768 && showPreview && (
-        <Preview width={windowDimensions.width} />
-      )}
+      {windowDimensions.width > 768 && showPreview && <Preview />}
       <Button onClick={onClickButtonShowPreview}>
         {!showPreview && <IconShow />}
         {showPreview && <IconHide />}
