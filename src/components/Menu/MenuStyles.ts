@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-
   position: absolute;
+  z-index: 99;
 `;
 
 export const WrapperSlider = styled.div`

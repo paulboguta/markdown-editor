@@ -1,15 +1,15 @@
 import { createContext } from "react";
 
-export type MenuContext = {
+type TMenuContext = {
   menuClicked: boolean;
+  menuClickHandler(): void;
   showNewDocumentForm: boolean;
-  clickHandler(): void;
-  newDocumentClicked(): void;
+  newDocumentButtonClicked(): void;
 };
 
-export const MenuContext = createContext<MenuContext>({
+export const MenuContext = createContext<TMenuContext>({
   menuClicked: false,
+  menuClickHandler: () => {},
   showNewDocumentForm: false,
-  clickHandler: () => {},
-  newDocumentClicked: () => {},
+  newDocumentButtonClicked: () => {},
 });
