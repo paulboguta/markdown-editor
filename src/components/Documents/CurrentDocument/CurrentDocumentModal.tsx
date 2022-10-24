@@ -1,5 +1,6 @@
 import { ReactComponent as IconClose } from "assets/icon-close.svg";
 import { Button } from "components/Buttons/Button";
+import { validateNewDoc } from "features/validation/validation";
 import { useAppDispatch } from "hooks/hooks";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -26,9 +27,11 @@ export const CurrentDocumentModal = ({
   const { id } = useSelector(
     (state: RootState) => state.currentDocumentReducer
   );
-  const onClickConfirm = () => {
-    dispatch(editDocumentName(newTitle, ID, userID));
-    onClickClose();
+  const onClickConfirm = async () => {
+    if (await validateNewDoc(newTitle, uid)) {
+      dispatch(editDocumentName(newTitle, ID, userID));
+      onClickClose();
+    }
   };
 
   useEffect(() => {
