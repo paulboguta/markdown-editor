@@ -10,3 +10,11 @@ export const setCurrentDocumentAction =
       id,
     });
   };
+
+export const editCurrentDocumentAction =
+  (newText: string) => (dispatch: AppDispatch) => {
+    dispatch({
+      type: "EDIT_DOCUMENT",
+      text: newText,
+    });
+  };

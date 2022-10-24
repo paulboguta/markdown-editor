@@ -65,14 +65,16 @@ export const saveEditDocument =
   };
 
 export const editDocumentName =
-  (newTitle: string, id: string) => async (dispatch: AppDispatch) => {
-    const docRef = doc(db, "Documents", `${id}`);
+  (newTitle: string, id: string, uid: string) =>
+  async (dispatch: AppDispatch) => {
+    const docRef = doc(db, "Users", uid, "Documents", id);
     await updateDoc(docRef, {
       title: newTitle,
     });
     dispatch({
-      type: "EDIT_DOCUMENT",
-      newText: newTitle,
+      type: "EDIT_DOCUMENT_NAME",
+      newTitle,
+      id,
     });
   };
 

@@ -46,15 +46,15 @@ const documentReducer = (state = initialState, action: any) => {
 
         loading: false,
       };
-    // case "EDIT_DOCUMENT_NAME":
-    //   return [
-    //     state.documents?.map((doc) => {
-    //       if (doc.title === action.title) {
-    //         return [...state.documents, { title: action.newTitle }];
-    //       }
-    //       return state.documents;
-    //     }),
-    //   ];
+    case "EDIT_DOCUMENT_NAME":
+      return {
+        documents: state.documents?.map((doc) => {
+          if (doc.id === action.id) {
+            return { text: doc.text, title: action.newTitle, id: doc.id };
+          }
+          return doc;
+        }),
+      };
     // case "DELETE_DOCUMENT":
     //   return [
     //     state.documents?.filter((doc) => doc.title !== action.documentName),
