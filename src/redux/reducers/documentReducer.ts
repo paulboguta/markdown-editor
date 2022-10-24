@@ -54,11 +54,13 @@ const documentReducer = (state = initialState, action: any) => {
           }
           return doc;
         }),
+        loading: false,
       };
-    // case "DELETE_DOCUMENT":
-    //   return [
-    //     state.documents?.filter((doc) => doc.title !== action.documentName),
-    //   ];
+    case "DELETE_DOCUMENT":
+      return {
+        documents: state.documents?.filter((doc) => doc.id !== action.id),
+        loading: false,
+      };
     default:
       return state;
   }

@@ -79,12 +79,12 @@ export const editDocumentName =
   };
 
 export const deleteDocument =
-  (id: string, documentName: string) => async (dispatch: AppDispatch) => {
-    const docRef = doc(db, "Documents", `${id}`);
+  (uid: string, id: string) => async (dispatch: AppDispatch) => {
+    const docRef = doc(db, "Users", uid, "Documents", id);
     await deleteDoc(docRef);
 
     dispatch({
       type: "DELETE_DOCUMENT",
-      documentName,
+      id,
     });
   };

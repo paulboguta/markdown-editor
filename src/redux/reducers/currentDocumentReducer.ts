@@ -16,6 +16,8 @@ const currentDocumentReducer = (state = initialState, action: AnyAction) => {
       return { title: state.title, text: action.text, id: state.id };
     case "EDIT_DOCUMENT_NAME":
       return { title: action.newTitle, text: state.text, id: state.id };
+    case "DELETE_DOCUMENT":
+      return { title: "", text: "", id: "" };
     default:
       return state;
   }
