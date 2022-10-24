@@ -12,16 +12,6 @@ import store from "./redux/store";
 
 export const App = () => {
   const [darkMode, setDarkMode] = useState<boolean>(false);
-  // const user = useAuth();
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   } else {
-  //     navigate("/signup");
-  //   }
-  // }, []);
 
   const changeDarkModeOnClick = (): void => {
     setDarkMode((prev: boolean) => !prev);
