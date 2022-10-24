@@ -1,84 +1,54 @@
-import styled from "styled-components";
-import { ChangeEvent, useState, useContext, useEffect } from "react";
-import { CurrentDocumentContext } from "../../contexts/CurrentDocumentContext";
+import { IPreviewMarkdownProps } from "pages/MainLayout/MainLayout.types";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { useAppDispatch } from "hooks/hooks";
+import { editCurrentDocumentAction } from "redux/actions/currentDocumentActions";
+import { Wrapper, Header, TextArea } from "./Markdown.styles";
 
-interface IMarkdownProps {
-  showPreview: boolean;
-  markdownInput: string;
-  changeHandler(event: ChangeEvent<HTMLTextAreaElement>): void;
-}
-
-interface IHeaderStyle {
-  width: string;
-}
-
-export const Markdown = ({
-  showPreview,
-  markdownInput,
-  changeHandler,
-}: IMarkdownProps) => {
-  let width = showPreview ? "50vw" : "100vw";
+export const Markdown = ({ showPreview }: IPreviewMarkdownProps) => {
   const [disableTextArea, setDisableTextArea] = useState<boolean>(false);
-  const { currentDocTitle } = useContext(CurrentDocumentContext);
+  const [docTitle, setDocTitle] = useState<string>("");
+  const [markdownText, setMarkdownText] = useState<string>("");
+  const document = useSelector(
+    (state: RootState) => state.currentDocumentReducer
+  );
+  const dispatch = useAppDispatch();
 
+  const onChangeInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setMarkdownText(event.target.value);
+    // change document text always on change to redux state
+    dispatch(editCurrentDocumentAction(event.target.value));
+  };
+
+  // set docTitle whenever title (from redux) changes
   useEffect(() => {
-    if (currentDocTitle === "") {
-      setDisableTextArea(true);
-    } else {
+    setDocTitle(document.title);
+  }, [document.title]);
+
+  // disable user to type if no document is selected
+  useEffect(() => {
+    if (typeof docTitle === "string" && docTitle.length > 1) {
       setDisableTextArea(false);
+    } else {
+      setDisableTextArea(true);
     }
-  }, [currentDocTitle]);
+  }, [docTitle]);
 
   return (
-    <Wrapper width={width}>
-      <Header width={width}>
+    <Wrapper width={showPreview ? "50vw" : "100vw"}>
+      <Header width={showPreview ? "50vw" : "100vw"}>
         <div>Markdown</div>
       </Header>
       <TextArea
         disabled={disableTextArea}
-        width={width}
-        value={markdownInput}
-        onChange={changeHandler}
-      />
+        width={showPreview ? "50vw" : "100vw"}
+        name="text_area"
+        value={document.text}
+        onChange={onChangeInput}
+      >
+        {markdownText}
+      </TextArea>
     </Wrapper>
   );
 };
-
-const Wrapper = styled.div<IHeaderStyle>`
-  height: 100%;
-  width: ${(props) => props.width};
-  background-color: ${(props) => props.theme.background};
-`;
-
-const Header = styled.div<IHeaderStyle>`
-  height: 42px;
-  width: ${(props) => props.width};
-  background-color: ${(props) => props.theme.markdownHeader};
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  div {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 500;
-    color: ${(props) => props.theme.markdownHeaderText};
-    margin-left: 20px;
-  }
-`;
-
-const TextArea = styled.textarea<IHeaderStyle>`
-  border: none;
-  padding: 10px;
-  background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.markDownText};
-  width: ${(props) => props.width};
-  height: 100vh;
-  resize: none;
-  &:focus {
-    outline: none;
-  }
-
-  font-family: "Roboto Mono";
-`;

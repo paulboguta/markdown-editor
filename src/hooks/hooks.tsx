@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../config/config";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { auth } from "../config/config";
 import { AppDispatch, RootState } from "../redux/store";
 
-//https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
+// https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
 
 const getWindowDimensions = () => {
   const { innerWidth: width, innerHeight: height } = window;

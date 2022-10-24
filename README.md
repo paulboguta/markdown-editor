@@ -19,6 +19,8 @@ functionalities so far:
 todo:
 
 - email/password validation + forget password
+- change documents name
+- complete markdown compiler (using code blocks etc.)
 
 ### Links
 
