@@ -13,7 +13,6 @@ import { Wrapper, Header, TextArea } from "./Preview.styles";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 export const Preview = ({ width }: IPreviewMarkdownProps) => {
-  const [markdownInput, setMarkdownInput] = useState<string>("");
   const [styleMode, setStyleMode] = useState<any>(duotoneDark);
   const { darkMode } = useContext(DarkModeContext);
   const { text } = useSelector(
@@ -23,10 +22,6 @@ export const Preview = ({ width }: IPreviewMarkdownProps) => {
   useEffect(() => {
     setStyleMode(darkMode ? duotoneLight : duotoneDark);
   }, [darkMode]);
-
-  useEffect(() => {
-    setMarkdownInput(text);
-  }, [text]);
 
   return (
     <Wrapper>
@@ -40,7 +35,7 @@ export const Preview = ({ width }: IPreviewMarkdownProps) => {
           /* eslint-disable react/no-children-prop */
           /* eslint-disable react/no-unstable-nested-components */
           className="preview-markdown"
-          children={markdownInput}
+          children={text}
           remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
           components={{
             code({ inline, className, children }) {
