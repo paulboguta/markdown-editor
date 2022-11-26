@@ -8,32 +8,21 @@ import { Wrapper, Header, TextArea } from "./Markdown.styles";
 
 export const Markdown = ({ showPreview }: IPreviewMarkdownProps) => {
   const [disableTextArea, setDisableTextArea] = useState<boolean>(false);
-  const [docTitle, setDocTitle] = useState<string>("");
   const [markdownText, setMarkdownText] = useState<string>("");
-  const document = useSelector(
+  const { title, text } = useSelector(
     (state: RootState) => state.currentDocumentReducer
   );
   const dispatch = useAppDispatch();
 
   const onChangeInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setMarkdownText(event.target.value);
-    // change document text always on change to redux state
     dispatch(editCurrentDocumentAction(event.target.value));
   };
 
-  // set docTitle whenever title (from redux) changes
-  useEffect(() => {
-    setDocTitle(document.title);
-  }, [document.title]);
-
   // disable user to type if no document is selected
   useEffect(() => {
-    if (typeof docTitle === "string" && docTitle.length > 1) {
-      setDisableTextArea(false);
-    } else {
-      setDisableTextArea(true);
-    }
-  }, [docTitle]);
+    setDisableTextArea(!!(typeof title === "string" && !title.length));
+  }, [title]);
 
   return (
     <Wrapper showPreview={showPreview}>
@@ -44,7 +33,7 @@ export const Markdown = ({ showPreview }: IPreviewMarkdownProps) => {
         disabled={disableTextArea}
         showPreview={showPreview}
         name="text_area"
-        value={document.text}
+        value={text}
         onChange={onChangeInput}
       >
         {markdownText}

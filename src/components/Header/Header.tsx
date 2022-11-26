@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "components/Buttons/Button";
 import { MenuIcon } from "components/Menu/MenuIcon";
 import { saveEditDocument } from "redux/actions/documentActions";
@@ -14,11 +14,6 @@ import { Delete } from "./Delete";
 
 export const Header = () => {
   const [deleteModalClicked, setDeleteModalClicked] = useState<boolean>(false);
-  const [doc, setDoc] = useState({
-    docText: "",
-    docID: "",
-    docTitle: "",
-  });
   const windowDimensions = useWindowDimensions();
   const dispatch = useAppDispatch();
 
@@ -29,11 +24,11 @@ export const Header = () => {
   const { uid } = useSelector((state: RootState) => state.userReducer);
 
   const onClickSave = () => {
-    dispatch(saveEditDocument(doc.docText, doc.docID, uid));
+    dispatch(saveEditDocument(text, id, uid));
   };
 
   const onClickDeleteModal = () => {
-    if (doc.docTitle.length < 1) {
+    if (!title.length) {
       alert("No document is selected");
     } else {
       setDeleteModalClicked((prev) => !prev);
@@ -43,14 +38,6 @@ export const Header = () => {
   const onClickCloseDeleteModal = () => {
     setDeleteModalClicked(false);
   };
-
-  useEffect(() => {
-    setDoc({
-      docText: text,
-      docID: id,
-      docTitle: title,
-    });
-  }, [text, id, title]);
 
   return (
     <Wrapper menuClicked={menuClicked}>

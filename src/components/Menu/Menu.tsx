@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { Button } from "components/Buttons/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
@@ -10,14 +10,8 @@ import { MenuContext } from "../../contexts/MenuContext";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 
 export const Menu = () => {
-  const [userEmail, setUserEmail] = useState<string>("");
   const { menuClicked, newDocumentButtonClicked } = useContext(MenuContext);
   const { email } = useSelector((state: RootState) => state.userReducer);
-
-  // set user email, documents
-  useEffect(() => {
-    setUserEmail(email);
-  }, [email]);
 
   return (
     <Wrapper>
@@ -46,7 +40,7 @@ export const Menu = () => {
             <DocumentsList />
           </div>
           <ToggleDarkMode />
-          <Username>{userEmail}</Username>
+          <Username>{email}</Username>
           <Button
             backgroundColor="#e46643"
             width="202px"

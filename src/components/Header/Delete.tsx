@@ -3,7 +3,6 @@ import { ReactComponent as IconClose } from "assets/icon-close.svg";
 import { ReactComponent as IconDelete } from "assets/icon-delete.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { useEffect, useState } from "react";
 import { useAppDispatch } from "hooks/hooks";
 import { deleteDocument } from "redux/actions/documentActions";
 import { Button } from "components/Buttons/Button";
@@ -40,8 +39,6 @@ const Flex = styled.div`
 `;
 
 export const Delete = ({ onClickCloseDeleteModal }: IProps) => {
-  const [userID, setUserID] = useState<string>("");
-  const [docID, setDocID] = useState<string>("");
   const { id } = useSelector(
     (state: RootState) => state.currentDocumentReducer
   );
@@ -50,13 +47,9 @@ export const Delete = ({ onClickCloseDeleteModal }: IProps) => {
 
   const onClickDelete = () => {
     onClickCloseDeleteModal();
-    dispatch(deleteDocument(userID, docID));
+    dispatch(deleteDocument(uid, id));
   };
 
-  useEffect(() => {
-    setUserID(uid);
-    setDocID(id);
-  }, [id, uid]);
   return (
     <Wrapper>
       <h5>Are you sure you to delete .md?</h5>

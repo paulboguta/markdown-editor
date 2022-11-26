@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { Button } from "components/Buttons/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
@@ -11,9 +11,8 @@ import { ReactComponent as IconClose } from "../../../assets/icon-close.svg";
 
 export const CreateDocForm = () => {
   const [newDocName, setNewDocName] = useState<string>("");
-  const [uid, setUid] = useState("");
   const dispatch = useAppDispatch();
-  const userID = useSelector((state: RootState) => state.userReducer.uid);
+  const { uid } = useSelector((state: RootState) => state.userReducer);
   const { newDocumentButtonClicked } = useContext(MenuContext);
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,16 +20,11 @@ export const CreateDocForm = () => {
   };
 
   const onClickCreateDoc = async () => {
-    // if validated dispatch action
     if (await validateNewDoc(newDocName, uid)) {
       dispatch(createDocumentAction(newDocName, uid));
       newDocumentButtonClicked();
     }
   };
-
-  useEffect(() => {
-    setUid(userID);
-  }, [userID, newDocumentButtonClicked]);
 
   return (
     <Wrapper>
