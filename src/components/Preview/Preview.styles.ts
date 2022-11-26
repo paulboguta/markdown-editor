@@ -2,7 +2,13 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   height: 100%;
+
   background-color: ${(props) => props.theme.background};
+  width: 50vw;
+
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 
 export const Header = styled.div`
@@ -15,6 +21,7 @@ export const Header = styled.div`
   position: absolute;
   top: 72px;
   width: 50vw;
+
   @media (max-width: 768px) {
     top: 56px;
     width: 100vw;

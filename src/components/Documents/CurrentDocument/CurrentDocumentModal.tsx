@@ -25,9 +25,11 @@ export const CurrentDocumentModal = ({
   const { id } = useSelector(
     (state: RootState) => state.currentDocumentReducer
   );
-  const onClickConfirm = () => {
-    dispatch(editDocumentName(newTitle, ID, userID));
-    onClickClose();
+  const onClickConfirm = async () => {
+    if (await validateNewDoc(newTitle, uid)) {
+      dispatch(editDocumentName(newTitle, id, uid));
+      onClickClose();
+    }
   };
 
   return (
