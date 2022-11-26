@@ -5,12 +5,13 @@ export const Wrapper = styled.div`
   align-items: center;
   position: absolute;
   z-index: 99;
+  height: 100%;
 `;
 
 export const WrapperSlider = styled.div`
   background-color: #1d1f22;
   width: 250px;
-  height: 950px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

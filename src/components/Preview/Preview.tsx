@@ -11,9 +11,7 @@ import { RootState } from "redux/store";
 import { Wrapper, Header, TextArea } from "./Preview.styles";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
-export const Preview = ({ width }: IPreviewMarkdownProps) => {
-  const w = width! > 768 ? "50vw" : "100vw";
-  const [markdownInput, setMarkdownInput] = useState<string>("");
+export const Preview = () => {
   const [styleMode, setStyleMode] = useState<any>(duotoneDark);
   const { darkMode } = useContext(DarkModeContext);
   const { text } = useSelector(
@@ -21,30 +19,21 @@ export const Preview = ({ width }: IPreviewMarkdownProps) => {
   );
 
   useEffect(() => {
-    if (darkMode) {
-      setStyleMode(duotoneLight);
-    } else {
-      setStyleMode(duotoneDark);
-    }
+    setStyleMode(darkMode ? duotoneLight : duotoneDark);
   }, [darkMode]);
-
-  useEffect(() => {
-    setMarkdownInput(text);
-  }, [text]);
-
   return (
     <Wrapper>
-      <Header width={w}>
+      <Header>
         <div>Preview</div>
       </Header>
 
-      <TextArea width={w}>
+      <TextArea>
         <ReactMarkdown
           // copied from reactmarkdown docs
           /* eslint-disable react/no-children-prop */
           /* eslint-disable react/no-unstable-nested-components */
           className="preview-markdown"
-          children={markdownInput}
+          children={text}
           remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
           components={{
             code({ inline, className, children }) {

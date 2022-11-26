@@ -15,7 +15,7 @@ export const Wrapper = styled.ul`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 50%;
+    width: 70%;
     height: 25px;
     margin-top: 5px;
     button {

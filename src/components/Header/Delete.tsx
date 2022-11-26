@@ -18,8 +18,8 @@ const Wrapper = styled.div`
   width: 300px;
   height: 100px;
   top: 200px;
-  left: 40%;
-
+  left: 50%;
+  transform: translate(-50%, -20%);
   display: flex;
   flex-direction: column;
   align-items: center;

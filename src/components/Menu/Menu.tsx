@@ -46,6 +46,7 @@ export const Menu = () => {
             width="202px"
             height="40px"
             mt="30px"
+            mb="10px"
             fontSize="15px"
             color="white"
             borderRadius="4px"

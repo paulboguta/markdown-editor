@@ -43,11 +43,6 @@ export const TextArea = styled.div`
   border-left: 1px solid ${(props) => props.theme.borderLeftPreview};
   color: ${(props) => props.theme.previewText};
   overflow-y: auto;
+  margin-top: 110px;
   height: 100vh;
-  width: 50vw;
-  padding-top: 120px;
-
-  @media (max-width: 768px) {
-    width: 100vw;
-  }
 `;

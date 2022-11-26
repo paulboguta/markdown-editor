@@ -8,6 +8,7 @@ export const ButtonStyled = styled.button<IButtonStyledProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   margin-top: ${(props) => props.mt};
+  margin-bottom: ${(props) => props.mb};
   font-size: ${(props) => props.fontSize};
   color: ${(props) => props.color};
   border-radius: ${(props) => props.borderRadius};

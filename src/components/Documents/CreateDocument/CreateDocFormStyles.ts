@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   position: fixed;
   top: 20%;
   left: 50%;
-  /* bring your own prefixes */
+  z-index: 99;
   transform: translate(-50%, -20%);
   display: flex;
   flex-direction: column;
