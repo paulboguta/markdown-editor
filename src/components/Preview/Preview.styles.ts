@@ -47,9 +47,6 @@ export const TextArea = styled.div<IPreviewStyle>`
   color: ${(props) => props.theme.previewText};
   width: ${(props) => props.width};
   overflow-y: auto;
+  margin-top: 110px;
   height: 100vh;
-
-  p {
-    margin-top: 120px;
-  }
 `;

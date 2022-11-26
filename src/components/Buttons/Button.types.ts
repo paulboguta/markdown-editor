@@ -25,4 +25,5 @@ export interface IButtonStyledProps {
   desktopWidth?: string;
   mobileMr?: string;
   mobileRight?: string;
+  mb?: string;
 }

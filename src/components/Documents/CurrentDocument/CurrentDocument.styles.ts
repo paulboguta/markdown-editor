@@ -21,7 +21,9 @@ export const Document = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-
+  @media (max-width: 370px) {
+    margin-left: -20px;
+  }
   svg {
     grid-area: 1 / 1 / 3 / 2;
     align-self: center;
@@ -47,8 +49,9 @@ export const WrapperModal = styled.div`
   height: 200px;
   border-radius: 4px;
   position: fixed;
-  top: 20%;
+  top: 200px;
   left: 50%;
+  z-index: 99;
   transform: translate(-50%, -20%);
   display: flex;
   flex-direction: column;
