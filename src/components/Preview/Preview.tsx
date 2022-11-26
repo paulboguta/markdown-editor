@@ -13,21 +13,15 @@ import { Wrapper, Header, TextArea } from "./Preview.styles";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 export const Preview = ({ width }: IPreviewMarkdownProps) => {
-  const w = width! > 768 ? "50vw" : "100vw";
   const [markdownInput, setMarkdownInput] = useState<string>("");
   const [styleMode, setStyleMode] = useState<any>(duotoneDark);
   const { darkMode } = useContext(DarkModeContext);
-
   const { text } = useSelector(
     (state: RootState) => state.currentDocumentReducer
   );
 
   useEffect(() => {
-    if (darkMode) {
-      setStyleMode(duotoneLight);
-    } else {
-      setStyleMode(duotoneDark);
-    }
+    setStyleMode(darkMode ? duotoneLight : duotoneDark);
   }, [darkMode]);
 
   useEffect(() => {
@@ -36,11 +30,11 @@ export const Preview = ({ width }: IPreviewMarkdownProps) => {
 
   return (
     <Wrapper>
-      <Header width={w}>
+      <Header width={width! > 768 ? "50vw" : "100vw"}>
         <div>Preview</div>
       </Header>
 
-      <TextArea width={w}>
+      <TextArea width={width! > 768 ? "50vw" : "100vw"}>
         <ReactMarkdown
           // copied from reactmarkdown docs
           /* eslint-disable react/no-children-prop */

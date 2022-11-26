@@ -12,7 +12,6 @@ export const HomePage = () => {
   const [showNewDocumentForm, setShowNewDocumentForm] =
     useState<boolean>(false);
 
-  // if there is user do nothing else navigate to signup
   const { uid } = useSelector((state: RootState) => state.userReducer);
   const navigate = useNavigate();
 

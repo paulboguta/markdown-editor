@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import {
@@ -12,24 +12,19 @@ import { CurrentDocumentModal } from "./CurrentDocumentModal";
 
 export const CurrentDocument = () => {
   const [currentDocumentClicked, setCurrentDocumentClicked] = useState(false);
-  const [currentTitle, setCurrentTitle] = useState<string>("");
-
-  const onClickCurrentDocument = () => {
-    setCurrentDocumentClicked((prev) => !prev);
-    if (currentTitle.length < 1) alert("No document selected");
-  };
-
-  const onClickClose = () => {
-    setCurrentDocumentClicked(false);
-  };
 
   const { title } = useSelector(
     (state: RootState) => state.currentDocumentReducer
   );
 
-  useEffect(() => {
-    setCurrentTitle(title);
-  }, [title]);
+  const onClickCurrentDocument = () => {
+    setCurrentDocumentClicked((prev) => !prev);
+    if (!title.length) alert("No document selected");
+  };
+
+  const onClickClose = () => {
+    setCurrentDocumentClicked(false);
+  };
 
   return (
     <Wrapper>
@@ -38,7 +33,7 @@ export const CurrentDocument = () => {
         <DocumentName>{title}.md</DocumentName>
         <IconDocument />
       </Document>
-      {currentTitle.length > 1 && currentDocumentClicked ? (
+      {title.length > 1 && currentDocumentClicked ? (
         <CurrentDocumentModal onClickClose={onClickClose} />
       ) : null}
     </Wrapper>

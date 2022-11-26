@@ -1,7 +1,7 @@
 import { ReactComponent as IconClose } from "assets/icon-close.svg";
 import { Button } from "components/Buttons/Button";
 import { useAppDispatch } from "hooks/hooks";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { editDocumentName } from "redux/actions/documentActions";
 import { RootState } from "redux/store";
@@ -15,8 +15,6 @@ export const CurrentDocumentModal = ({
   onClickClose,
 }: ICurrentDocumentModalProps) => {
   const [newTitle, setNewTitle] = useState<string>("");
-  const [userID, setUserID] = useState<string>("");
-  const [ID, setID] = useState<string>("");
   const dispatch = useAppDispatch();
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -27,14 +25,9 @@ export const CurrentDocumentModal = ({
     (state: RootState) => state.currentDocumentReducer
   );
   const onClickConfirm = () => {
-    dispatch(editDocumentName(newTitle, ID, userID));
+    dispatch(editDocumentName(newTitle, id, uid));
     onClickClose();
   };
-
-  useEffect(() => {
-    setUserID(uid);
-    setID(id);
-  }, [uid, id]);
 
   return (
     <WrapperModal>
