@@ -3,20 +3,21 @@ import {
   getDocumentsFromFirebase,
 } from "features/documents/documents.service";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { ActionTypes } from "redux/action.types";
 import { db } from "../../config/config";
 import { AppDispatch } from "../store";
 
 export const getDocumentsAction =
   (uid: string) => async (dispatch: AppDispatch) => {
     dispatch({
-      type: "FETCHING_DOCUMENTS",
+      type: ActionTypes.FETCHING_DOCUMENTS,
       loading: true,
     });
 
     try {
       const data = await getDocumentsFromFirebase(uid);
       dispatch({
-        type: "FETCHING_DOCUMENTS_SUCCESS",
+        type: ActionTypes.FETCHING_DOCUMENTS_SUCCESS,
         documents: data,
         loading: false,
       });
@@ -28,14 +29,14 @@ export const getDocumentsAction =
 export const createDocumentAction =
   (newDocumentTitle: string, uid: string) => async (dispatch: AppDispatch) => {
     dispatch({
-      type: "CREATE_DOCUMENT_INIT",
+      type: ActionTypes.CREATE_DOCUMENT_INIT,
       loading: true,
       error: null,
     });
     try {
       const id = await createDocument(newDocumentTitle, uid);
       dispatch({
-        type: "CREATE_DOCUMENT_SUCCESS",
+        type: ActionTypes.CREATE_DOCUMENT_SUCCESS,
         newDoc: newDocumentTitle,
         id,
         loading: false,
@@ -43,7 +44,7 @@ export const createDocumentAction =
       });
     } catch (e) {
       dispatch({
-        type: "CREATE_DOCUMENT_ERROR",
+        type: ActionTypes.CREATE_DOCUMENT_ERROR,
         loading: false,
         error: e,
       });
@@ -58,7 +59,7 @@ export const saveEditDocument =
       text: newText,
     });
     dispatch({
-      type: "SAVE_EDIT_DOCUMENT",
+      type: ActionTypes.SAVE_EDIT_DOCUMENT,
       newText,
       id,
     });
@@ -72,7 +73,7 @@ export const editDocumentName =
       title: newTitle,
     });
     dispatch({
-      type: "EDIT_DOCUMENT_NAME",
+      type: ActionTypes.EDIT_DOCUMENT_NAME,
       newTitle,
       id,
     });
@@ -84,7 +85,7 @@ export const deleteDocument =
     await deleteDoc(docRef);
 
     dispatch({
-      type: "DELETE_DOCUMENT",
+      type: ActionTypes.DELETE_DOCUMENT,
       id,
     });
   };

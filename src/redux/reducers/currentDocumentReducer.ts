@@ -1,4 +1,4 @@
-import { AnyAction } from "@reduxjs/toolkit";
+import { ActionTypes } from "redux/action.types";
 import { IDocument } from "types/types";
 
 const initialState: IDocument = {
@@ -7,16 +7,24 @@ const initialState: IDocument = {
   id: "",
 };
 
-const currentDocumentReducer = (state = initialState, action: AnyAction) => {
+interface IAction {
+  type: string;
+  title: string;
+  text: string;
+  id: string;
+  newTitle: string;
+}
+
+const currentDocumentReducer = (state = initialState, action: IAction) => {
   switch (action.type) {
-    case "SET_CURRENT_DOCUMENT":
+    case ActionTypes.SET_CURRENT_DOCUMENT:
       return { title: action.title, text: action.text, id: action.id };
 
-    case "EDIT_DOCUMENT":
+    case ActionTypes.EDIT_DOCUMENT:
       return { title: state.title, text: action.text, id: state.id };
-    case "EDIT_DOCUMENT_NAME":
+    case ActionTypes.EDIT_DOCUMENT_NAME:
       return { title: action.newTitle, text: state.text, id: state.id };
-    case "DELETE_DOCUMENT":
+    case ActionTypes.DELETE_DOCUMENT:
       return { title: "", text: "", id: "" };
     default:
       return state;

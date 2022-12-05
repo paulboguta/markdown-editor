@@ -1,19 +1,31 @@
-import { IDocumentsState } from "../../types/types";
+import { ActionTypes } from "redux/action.types";
+import { IDocument, IDocumentsState } from "../../types/types";
 
 const initialState: IDocumentsState = {
   documents: [],
   loading: false,
 };
 
-const documentReducer = (state = initialState, action: any) => {
+interface IAction {
+  type: string;
+  documents: IDocument[];
+  loading: boolean;
+  newDoc: string;
+  id: string;
+  error: any;
+  newText: string;
+  newTitle: string;
+}
+
+const documentReducer = (state = initialState, action: IAction) => {
   switch (action.type) {
-    case "CREATE_DOCUMENT_INIT": {
+    case ActionTypes.CREATE_DOCUMENT_INIT: {
       return {
         documents: [...state.documents],
         loading: true,
       };
     }
-    case "CREATE_DOCUMENT_SUCCESS":
+    case ActionTypes.CREATE_DOCUMENT_SUCCESS:
       return {
         documents: [
           ...state.documents,
@@ -28,14 +40,14 @@ const documentReducer = (state = initialState, action: any) => {
         loading: false,
       };
 
-    case "FETCHING_DOCUMENTS": {
+    case ActionTypes.FETCHING_DOCUMENTS: {
       return { loading: action.loading };
     }
 
-    case "FETCHING_DOCUMENTS_SUCCESS": {
+    case ActionTypes.FETCHING_DOCUMENTS_SUCCESS: {
       return { documents: [...action.documents], loading: action.loading };
     }
-    case "SAVE_EDIT_DOCUMENT":
+    case ActionTypes.SAVE_EDIT_DOCUMENT:
       return {
         documents: state.documents?.map((doc) => {
           if (doc.id === action.id) {
@@ -46,7 +58,7 @@ const documentReducer = (state = initialState, action: any) => {
 
         loading: false,
       };
-    case "EDIT_DOCUMENT_NAME":
+    case ActionTypes.EDIT_DOCUMENT_NAME:
       return {
         documents: state.documents?.map((doc) => {
           if (doc.id === action.id) {
@@ -56,7 +68,7 @@ const documentReducer = (state = initialState, action: any) => {
         }),
         loading: false,
       };
-    case "DELETE_DOCUMENT":
+    case ActionTypes.DELETE_DOCUMENT:
       return {
         documents: state.documents?.filter((doc) => doc.id !== action.id),
         loading: false,

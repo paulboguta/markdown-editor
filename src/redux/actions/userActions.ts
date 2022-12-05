@@ -1,9 +1,10 @@
+import { ActionTypes } from "redux/action.types";
 import { AppDispatch } from "redux/store";
 
 export const loginUser =
   (email: string, uid: string) => async (dispatch: AppDispatch) => {
     dispatch({
-      type: "LOGIN_USER_SUCCESS",
+      type: ActionTypes.LOGIN_USER_SUCCESS,
       email,
       uid,
     });
@@ -12,7 +13,7 @@ export const loginUser =
 export const signUpUser =
   (email: string, uid: string) => (dispatch: AppDispatch) => {
     dispatch({
-      type: "REGISTER_USER_SUCCESS",
+      type: ActionTypes.REGISTER_USER_SUCCESS,
       email,
       uid,
     });
