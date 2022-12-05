@@ -1,23 +1,12 @@
 import { ActionTypes } from "redux/action.types";
-import { IDocument, IDocumentsState } from "../../types/types";
+import { IDocumentsState } from "../../types/types";
 
 const initialState: IDocumentsState = {
   documents: [],
   loading: false,
 };
 
-interface IAction {
-  type: string;
-  documents: IDocument[];
-  loading: boolean;
-  newDoc: string;
-  id: string;
-  error: any;
-  newText: string;
-  newTitle: string;
-}
-
-const documentReducer = (state = initialState, action: IAction) => {
+const documentReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case ActionTypes.CREATE_DOCUMENT_INIT: {
       return {

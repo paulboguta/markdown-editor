@@ -1,3 +1,4 @@
+import { AnyAction } from "@reduxjs/toolkit";
 import { ActionTypes } from "redux/action.types";
 import { IUser } from "types/types";
 
@@ -6,13 +7,7 @@ const initialState: IUser = {
   uid: "",
 };
 
-interface IAction {
-  email: string;
-  uid: string;
-  type: string;
-}
-
-const userReducer = (state = initialState, action: IAction) => {
+const userReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case ActionTypes.LOGIN_USER_SUCCESS:
       return { email: action.email, uid: action.uid };
