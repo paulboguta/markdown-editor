@@ -39,7 +39,7 @@ const Flex = styled.div`
 `;
 
 export const Delete = ({ onClickCloseDeleteModal }: IProps) => {
-  const { id } = useSelector(
+  const { id, title } = useSelector(
     (state: RootState) => state.currentDocumentReducer
   );
   const { uid } = useSelector((state: RootState) => state.userReducer);
@@ -52,7 +52,7 @@ export const Delete = ({ onClickCloseDeleteModal }: IProps) => {
 
   return (
     <Wrapper>
-      <h5>Are you sure you to delete .md?</h5>
+      <h5>Are you sure you to delete {title}.md?</h5>
       <Flex>
         <Button backgroundColor="transparent" onClick={onClickCloseDeleteModal}>
           <IconClose />
